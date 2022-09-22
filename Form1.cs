@@ -563,11 +563,24 @@ namespace DarkNotepad
                 Application.OpenForms.OfType<Stylize>().First().Focus();
             }
         }
+        public void SendFeedback()
+        {
+            try
+            {
+                ProcessStartInfo proc = new ProcessStartInfo("https://github.com/000Daniel/Dark-Notepad/issues");
+                proc.UseShellExecute = true;
+                Process.Start(proc);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error!:\n" + ex.Message);
+            }
+        }
 
-                //  These functions handle the custom Context Menu script.
-                //  cxm is the context menu that these functions add buttons to,
-                //  the createButton function also takes a method name which it would
-                //  call(on this script) when pressed.
+        //  These functions handle the custom Context Menu script.
+        //  cxm is the context menu that these functions add buttons to,
+        //  the createButton function also takes a method name which it would
+        //  call(on this script) when pressed.
         private void button1_Click(object sender, EventArgs e)
         {
             ContextMenu cxm = new ContextMenu();
@@ -680,7 +693,7 @@ namespace DarkNotepad
             ContextMenu cxm = new ContextMenu();
             cxm.ShowInTaskbar = false;
             cxm.createButton(sender, e, "View Help", "ViewHelpMenu");
-            cxm.createButton(sender, e, "Send Feedback", "TestEvent");
+            cxm.createButton(sender, e, "Send Feedback", "SendFeedback");
             cxm.createPanelLine(sender, e, 4);
             cxm.createButton(sender, e, "About Dark Notepad", "AboutMenu");
 
