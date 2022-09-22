@@ -1,0 +1,57 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DarkNotepad" GeneratedClassName="SettingsStylize">
+  <Profiles />
+  <Settings>
+    <Setting Name="Background" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">30, 30, 30</Value>
+    </Setting>
+    <Setting Name="Background_Highlight" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">40, 40, 40</Value>
+    </Setting>
+    <Setting Name="Text" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">240, 240, 240</Value>
+    </Setting>
+    <Setting Name="Link" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">130, 100, 255</Value>
+    </Setting>
+    <Setting Name="Link_Pressed" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">70, 50, 205</Value>
+    </Setting>
+    <Setting Name="Button" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">30, 30, 30</Value>
+    </Setting>
+    <Setting Name="Button_Highlight" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">40, 40, 60</Value>
+    </Setting>
+    <Setting Name="Button_Pressed" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">60, 60, 90</Value>
+    </Setting>
+    <Setting Name="Button_Text" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">240, 240, 240</Value>
+    </Setting>
+    <Setting Name="Button_Unavailable" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">30, 30, 30</Value>
+    </Setting>
+    <Setting Name="Button_Unavailable_Text" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">100, 100, 100</Value>
+    </Setting>
+    <Setting Name="Button_Unavailable_Highlight" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">50, 50, 50</Value>
+    </Setting>
+    <Setting Name="Button_Unavailable_Pressed" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">75, 75, 75</Value>
+    </Setting>
+    <Setting Name="Button_Border" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">40, 40, 40</Value>
+    </Setting>
+    <Setting Name="TextBox" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">40, 40, 40</Value>
+    </Setting>
+    <Setting Name="TextBox_Text" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">240, 240, 240</Value>
+    </Setting>
+    <Setting Name="Text_Error" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Red</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

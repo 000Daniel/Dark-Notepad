@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="AboutMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ColorPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ContextMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FindReplace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FontMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GoTo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Stylize.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ViewHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="WarningBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
