@@ -2,7 +2,7 @@
 <br />
 When using Dark Notepad you can change the header and footer of a document. <br />
 Commands in the header and footer can be used to give your document a title and more! <br />
-These settings can't be saved, so all header and footer settings must be entered menually each time <br />
+These settings can't be saved, so all header and footer settings must be entered manually each time <br />
 you want to print a document. <br />
 <br />
 
@@ -20,7 +20,7 @@ Footer text fields. Here's a list of all the available commands:
 |&f     |Print the Name of the document              |
 |&p     |Print the Page Number                       |
 <br />
-If you leave the header and footer text fields empty, no header or fooer will print.
+If you leave the header and footer text fields empty, no header or footer will print.
 
 ## Examples
 ### Regular
