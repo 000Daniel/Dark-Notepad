@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -44,6 +45,8 @@ namespace DarkNotepad
             UpdatePreviewText();
         }
 
+                //  These FontFinder timers exist to speedup the process of finding and displaying
+                //  all the available fonts.
         private void FontFinder_Tick(object sender, EventArgs e)
         {
             if (richTextBox1.ZoomFactor != 1)
@@ -85,7 +88,6 @@ namespace DarkNotepad
             }
             curFont++;
         }
-
         private void FontFinder2_Tick(object sender, EventArgs e)
         {
             if (curFont <= ifc.Families.Length - 1)
@@ -122,7 +124,6 @@ namespace DarkNotepad
             }
             curFont++;
         }
-
         private void FontFinder3_Tick(object sender, EventArgs e)
         {
             if (curFont <= ifc.Families.Length - 1)
@@ -160,6 +161,7 @@ namespace DarkNotepad
             curFont++;
         }
 
+                //  If 'finishedLoading' is false don't allow the user to access the TextBoxes.
         private void richTextBox1_Enter(object sender, EventArgs e)
         {
             if (!finishedLoading)
@@ -168,7 +170,6 @@ namespace DarkNotepad
                 return;
             }
         }
-
         private void richTextBox1_Click(object sender, EventArgs e)
         {
             if (!finishedLoading)
@@ -178,6 +179,8 @@ namespace DarkNotepad
             }
         }
 
+                //  This handles what font the user has clicked on.
+                //  And the selected font will be highlighed entirely.
         private void richTextBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (!finishedLoading)
@@ -201,6 +204,7 @@ namespace DarkNotepad
             FontStyleFinder.Enabled = true;
         }
 
+                //  This, like 'FontFinder timers' exist to find all the extensions/styles of a font.
         private void FontStyleFinder_Tick(object sender, EventArgs e)
         {
             richTextBox2.Clear();
@@ -210,10 +214,7 @@ namespace DarkNotepad
             {
                 FontFamily ff2 = new FontFamily(textBox1.Text);
             }
-            catch
-            {
-                return;
-            }
+            catch{return;}
 
             FontFamily ff = new FontFamily(textBox1.Text);
             foreach (FontFamily off in ifc.Families)
@@ -279,18 +280,6 @@ namespace DarkNotepad
             regularFont = null;
             styleOfFont = null;
             UpdatePreviewText();
-        }
-
-        private void UpdatePreviewText()
-        {
-            preview_label.Font = settingsFont;
-
-            int Xpos = Sample_Text_Panel.Size.Width / 2
-                - preview_label.Size.Width / 2;
-            int Ypos = Sample_Text_Panel.Size.Height / 2
-                - preview_label.Size.Height / 2;
-
-            preview_label.Location = new Point(Xpos, Ypos);
         }
 
         private void richTextBox3_MouseUp(object sender, MouseEventArgs e)
@@ -388,6 +377,21 @@ namespace DarkNotepad
             scrollWithArrows(sender, e, richTextBox3, textBox3, true);
         }
 
+                //  This handles the preview of the Font.
+                //  The font might get larger or smaller so there's a need to move it around to
+                //  fit in the center of the preview box.
+        private void UpdatePreviewText()
+        {
+            preview_label.Font = settingsFont;
+
+            int Xpos = Sample_Text_Panel.Size.Width / 2
+                - preview_label.Size.Width / 2;
+            int Ypos = Sample_Text_Panel.Size.Height / 2
+                - preview_label.Size.Height / 2;
+
+            preview_label.Location = new Point(Xpos, Ypos);
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             this.Dispose();
@@ -397,16 +401,17 @@ namespace DarkNotepad
         {
             Settings1.Default.Font = settingsFont;
             Settings1.Default.Save();
-            Notepad dnp = new Notepad();
+            Notepad dnp = new Notepad(String.Empty);
             if (Application.OpenForms.OfType<Notepad>().Any())
             {
                 dnp = Application.OpenForms.OfType<Notepad>().First();
-                dnp.UpdateTextFont();
+                dnp.updateTextFont();
                 dnp = null;
             }
             this.Close();
         }
 
+                //  This opens the 'Fonts settings' in windows.
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
@@ -417,7 +422,12 @@ namespace DarkNotepad
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error!:\n" + ex.Message);
+                WarningBox WB = new WarningBox(ex.Message);
+                WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
+                WB.StartPosition = FormStartPosition.CenterScreen;
+                WB.Show();
+                WB.BringToFront();
+                WB = null;
             }
         }
 

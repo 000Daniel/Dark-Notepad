@@ -106,5 +106,89 @@ namespace DarkNotepad {
                 this["MatchCase"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("UTF-8")]
+        public string Encode {
+            get {
+                return ((string)(this["Encode"]));
+            }
+            set {
+                this["Encode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20, 20")]
+        public global::System.Drawing.Point PS_Margin1 {
+            get {
+                return ((global::System.Drawing.Point)(this["PS_Margin1"]));
+            }
+            set {
+                this["PS_Margin1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25, 25")]
+        public global::System.Drawing.Point PS_Margin2 {
+            get {
+                return ((global::System.Drawing.Point)(this["PS_Margin2"]));
+            }
+            set {
+                this["PS_Margin2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PS_Header {
+            get {
+                return ((string)(this["PS_Header"]));
+            }
+            set {
+                this["PS_Header"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PS_Footer {
+            get {
+                return ((string)(this["PS_Footer"]));
+            }
+            set {
+                this["PS_Footer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PS_Portrait {
+            get {
+                return ((bool)(this["PS_Portrait"]));
+            }
+            set {
+                this["PS_Portrait"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("A4")]
+        public string PS_Size {
+            get {
+                return ((string)(this["PS_Size"]));
+            }
+            set {
+                this["PS_Size"] = value;
+            }
+        }
     }
 }

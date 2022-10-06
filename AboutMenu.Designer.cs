@@ -107,9 +107,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 200);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(426, 15);
+            this.label5.Size = new System.Drawing.Size(322, 15);
             this.label5.TabIndex = 6;
-            this.label5.Text = "If you encounter any issues with this software report them at the Github page.";
+            this.label5.Text = "Please report any issues encountered at the Github page.";
             // 
             // label6
             // 
@@ -125,9 +125,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(90, 120);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 15);
+            this.label7.Size = new System.Drawing.Size(78, 15);
             this.label7.TabIndex = 8;
-            this.label7.Text = "Version 1.0";
+            this.label7.Text = "Version 1.0.1";
             // 
             // button2
             // 

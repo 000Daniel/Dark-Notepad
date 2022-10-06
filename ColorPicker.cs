@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DarkNotepad
@@ -42,6 +36,8 @@ namespace DarkNotepad
             }
         }
 
+                //  This function looks into where the mouse is on the Color Spectrum,
+                //  and picks that color.
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -93,6 +89,8 @@ namespace DarkNotepad
             textBox3.Text = trackBar3.Value.ToString();
         }
 
+                //  This function makes sure that the user did not enter values that are too high.
+                //  It also updates the 'Track Bars' and color preview.
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             try
@@ -148,6 +146,7 @@ namespace DarkNotepad
             updatePreviewColor();
         }
 
+                //  These functions check whether the user has entered numbers into the textboxes.
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = checkChar(e);

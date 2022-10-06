@@ -47,12 +47,16 @@ namespace DarkNotepad
             this.StatusInnerPanel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.statusLabel2 = new System.Windows.Forms.Label();
+            this.StatusInnerPanel3 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.statusLabel3 = new System.Windows.Forms.Label();
             this.CollectGarbage = new System.Windows.Forms.Timer(this.components);
             this.CaretChange = new System.Windows.Forms.Timer(this.components);
             this.StatusPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.StatusInnerPanel.SuspendLayout();
             this.StatusInnerPanel2.SuspendLayout();
+            this.StatusInnerPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -73,6 +77,7 @@ namespace DarkNotepad
             // button1
             // 
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -90,6 +95,7 @@ namespace DarkNotepad
             // button2
             // 
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -107,6 +113,7 @@ namespace DarkNotepad
             // button3
             // 
             this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
             this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -124,6 +131,7 @@ namespace DarkNotepad
             // button4
             // 
             this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
             this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -141,6 +149,7 @@ namespace DarkNotepad
             // button5
             // 
             this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
             this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -172,6 +181,7 @@ namespace DarkNotepad
             this.richTextBox1.TabStop = false;
             this.richTextBox1.Text = "";
             this.richTextBox1.WordWrap = false;
+            this.richTextBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Notepad_DragDrop);
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBox1_KeyDown);
@@ -182,6 +192,7 @@ namespace DarkNotepad
             this.StatusPanel.Controls.Add(this.pictureBox1);
             this.StatusPanel.Controls.Add(this.StatusInnerPanel);
             this.StatusPanel.Controls.Add(this.StatusInnerPanel2);
+            this.StatusPanel.Controls.Add(this.StatusInnerPanel3);
             this.StatusPanel.ForeColor = System.Drawing.SystemColors.Control;
             this.StatusPanel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.StatusPanel.Location = new System.Drawing.Point(0, 519);
@@ -258,6 +269,35 @@ namespace DarkNotepad
             this.statusLabel2.TabIndex = 0;
             this.statusLabel2.Text = "Ln 1,Col 1";
             // 
+            // StatusInnerPanel3
+            // 
+            this.StatusInnerPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.StatusInnerPanel3.Controls.Add(this.panel6);
+            this.StatusInnerPanel3.Controls.Add(this.statusLabel3);
+            this.StatusInnerPanel3.Location = new System.Drawing.Point(652, 0);
+            this.StatusInnerPanel3.Name = "StatusInnerPanel3";
+            this.StatusInnerPanel3.Size = new System.Drawing.Size(106, 22);
+            this.StatusInnerPanel3.TabIndex = 11;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(2, 22);
+            this.panel6.TabIndex = 1;
+            // 
+            // statusLabel3
+            // 
+            this.statusLabel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.statusLabel3.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.statusLabel3.ForeColor = System.Drawing.SystemColors.Control;
+            this.statusLabel3.Location = new System.Drawing.Point(10, 3);
+            this.statusLabel3.Name = "statusLabel3";
+            this.statusLabel3.Size = new System.Drawing.Size(100, 14);
+            this.statusLabel3.TabIndex = 0;
+            this.statusLabel3.Text = "Ln 1,Col 1";
+            // 
             // CollectGarbage
             // 
             this.CollectGarbage.Enabled = true;
@@ -271,6 +311,7 @@ namespace DarkNotepad
             // 
             // Notepad
             // 
+            this.AllowDrop = true;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(984, 541);
@@ -291,11 +332,13 @@ namespace DarkNotepad
             this.Activated += new System.EventHandler(this.Notepad_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Notepad_FormClosing);
             this.Load += new System.EventHandler(this.Notepad_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Notepad_DragDrop);
             this.Resize += new System.EventHandler(this.Notepad_Resize);
             this.StatusPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.StatusInnerPanel.ResumeLayout(false);
             this.StatusInnerPanel2.ResumeLayout(false);
+            this.StatusInnerPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -319,6 +362,9 @@ namespace DarkNotepad
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label statusLabel2;
         private System.Windows.Forms.Timer CaretChange;
+        private System.Windows.Forms.Panel StatusInnerPanel3;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label statusLabel3;
     }
 }
 

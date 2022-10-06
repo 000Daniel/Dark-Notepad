@@ -43,7 +43,12 @@ namespace DarkNotepad
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error!:\n" + ex.Message);
+                WarningBox WB = new WarningBox(ex.Message);
+                WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
+                WB.StartPosition = FormStartPosition.CenterScreen;
+                WB.Show();
+                WB.BringToFront();
+                WB = null;
             }
         }
 

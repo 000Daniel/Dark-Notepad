@@ -40,6 +40,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.backgroundPanel = new System.Windows.Forms.Panel();
             this.settingsPanel = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
@@ -89,7 +91,7 @@
             this.label2.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(145, 384);
+            this.label2.Size = new System.Drawing.Size(145, 432);
             this.label2.TabIndex = 1;
             this.label2.Text = resources.GetString("label2.Text");
             // 
@@ -109,18 +111,16 @@
             this.label4.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(195, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 384);
+            this.label4.Size = new System.Drawing.Size(82, 432);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Ctrl+N\r\nCtrl+Shift+N\r\nCtrl+O\r\nCtrl+S\r\nCtrl+Shift+S\r\n\r\nCtrl+Z\r\nCtrl+Y\r\nCtrl+X\r\nCtr" +
-    "l+C\r\nCtrl+V\r\nDel\r\nCtrl+E\r\nCtrl+F\r\nF3\r\nShift+F3\r\nCtrl+H\r\nCtrl+G\r\nCtrl+A\r\nF5\r\n\r\nCt" +
-    "rl+Plus\r\nCtrl+Minus\r\nCtrl+0";
+            this.label4.Text = resources.GetString("label4.Text");
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label9.Location = new System.Drawing.Point(3, 384);
+            this.label9.Location = new System.Drawing.Point(3, 432);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(131, 16);
             this.label9.TabIndex = 8;
@@ -183,6 +183,8 @@
             // 
             // settingsPanel
             // 
+            this.settingsPanel.Controls.Add(this.label7);
+            this.settingsPanel.Controls.Add(this.button4);
             this.settingsPanel.Controls.Add(this.textBox1);
             this.settingsPanel.Controls.Add(this.label6);
             this.settingsPanel.Controls.Add(this.radioButton5);
@@ -195,6 +197,35 @@
             this.settingsPanel.Name = "settingsPanel";
             this.settingsPanel.Size = new System.Drawing.Size(298, 290);
             this.settingsPanel.TabIndex = 19;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(11, 201);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 15);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "Encoder";
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
+            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button4.Location = new System.Drawing.Point(11, 219);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(136, 26);
+            this.button4.TabIndex = 18;
+            this.button4.Text = "UTF-8";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.UseCompatibleTextRendering = true;
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // textBox1
             // 
@@ -332,5 +363,7 @@
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Label label7;
+        public System.Windows.Forms.Button button4;
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -13,6 +11,7 @@ namespace DarkNotepad
         private int index;
         private bool overrideIndex = true;
         private string replaceWith = string.Empty;
+
         public FindReplace()
         {
             InitializeComponent();
@@ -41,6 +40,7 @@ namespace DarkNotepad
             }
         }
 
+                //  This simple function decides whether the 'matchCase' should be true or false.
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
             matchCase = !matchCase;
@@ -69,6 +69,11 @@ namespace DarkNotepad
             updateThemeColors();
         }
 
+                //  Button1 is responsible for finding the previous matching string in the file.
+                //  it works by selecting the last matching string till where the selection is,
+                //  (before the selection)
+                //  if the user reached the beginning while still trying to find a string the selection
+                //  will reset to the last matched string in the file.
         public void button1_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == String.Empty) return;
@@ -128,6 +133,11 @@ namespace DarkNotepad
             find = null;
         }
 
+                //  Button2 is responsible for finding the next matching string in the file.
+                //  it works by selecting the first matching string from where the selection is,
+                //  (after the selection)
+                //  if the user reached the end while still trying to find a string the selection
+                //  will reset to the first matched string in the file.
         public void button2_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == String.Empty) return;
@@ -216,6 +226,8 @@ namespace DarkNotepad
             find = null;
         }
 
+                //  Button3(Replace) and Button4(Replace All) rely on the previous buttons to
+                //  replace text.
         private void button3_Click(object sender, EventArgs e)
         {
             replaceWith = textBox2.Text;

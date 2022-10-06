@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DarkNotepad
@@ -9,12 +10,19 @@ namespace DarkNotepad
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main(string[] args)
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Notepad());
+            if (args.Count() > 0)
+            {
+                Application.Run(new Notepad(args[0]));
+            }
+            else
+            {
+                Application.Run(new Notepad(String.Empty));
+            }
         }
     }
 }

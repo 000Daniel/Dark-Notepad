@@ -13,6 +13,21 @@ namespace DarkNotepad
             InitializeComponent();
         }
 
+        private void GoTo_Load(object sender, EventArgs e)
+        {
+            updateDNT(sender, e);
+            textBox1.Text = (dnp.richTextBox1.Lines.Count()).ToString();
+            updateThemeColors();
+        }
+
+        private void updateDNT(object sender, EventArgs e)
+        {
+            if (dnp != null) return;
+            if (Application.OpenForms.OfType<Notepad>().Any())
+                dnp = Application.OpenForms.OfType<Notepad>().First();
+        }
+
+                //  This function checks if the user entered a number into the TextBox.
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
@@ -34,17 +49,6 @@ namespace DarkNotepad
             }
         }
 
-        private void updateDNT(object sender, EventArgs e)
-        {
-            if (dnp == null)
-            {
-                if (Application.OpenForms.OfType<Notepad>().Any())
-                {
-                    dnp = Application.OpenForms.OfType<Notepad>().First();
-                }
-            }
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Dispose();
@@ -52,6 +56,7 @@ namespace DarkNotepad
             dnp.Focus();
         }
 
+                //  This button tries to go to the requested line.
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -90,23 +95,14 @@ namespace DarkNotepad
         private void GoTo_Activated(object sender, EventArgs e)
         {
             if (Application.OpenForms.OfType<WarningBox>().Any())
-            {
                 Application.OpenForms.OfType<WarningBox>().First().BringToFront();
-                return;
-            }
         }
 
-        private void GoTo_Load(object sender, EventArgs e)
-        {
-            updateDNT(sender, e);
-            textBox1.Text = (dnp.richTextBox1.Lines.Count()).ToString();
-            updateThemeColors();
-        }
         public void updateThemeColors()
         {
             SettingsStylize SStylize = SettingsStylize.Default;
-            this.BackColor = SStylize.Background;
-            this.ForeColor = SStylize.Text;
+            BackColor = SStylize.Background;
+            ForeColor = SStylize.Text;
             textBox1.BackColor = SStylize.TextBox;
             textBox1.ForeColor = SStylize.TextBox_Text;
             label1.BackColor = SStylize.Background;

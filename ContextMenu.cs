@@ -5,17 +5,18 @@ using System.Windows.Forms;
 
 namespace DarkNotepad
 {
-    //  This class is called and created only from 'Form1' class.
-    //  This class contains 'createButton()', 'createCheckedButton()', 'createPanelLine()'
-    //  functions which together allow the Developer to add and remove whatever controls they
-    //  want during runtime, this class is a modular Context menu.
-    //  Each button also calls by name a method/function from 'From1' class.
+            //  This class is called and created mainly from 'Form1' class.
+            //  This class contains 'createButton()', 'createCheckedButton()', 'createPanelLine()'
+            //  functions which together allow the Developer to add and remove whatever controls they
+            //  want during runtime, this class is a modular Context menu.
+            //  Each button also calls by name a method/function from 'From1' class.
     public partial class ContextMenu : Form
     {
         private int locationY = 1;
         private int ButtonHeight = 26;
-        private Notepad dnp = new Notepad();
+        private Notepad dnp = new Notepad(String.Empty);
         public bool busy = false;
+        public int panelSize = 231;
         SettingsStylize SStylize = SettingsStylize.Default;
 
         public ContextMenu()
@@ -33,6 +34,7 @@ namespace DarkNotepad
         private void updateFormSize(object sender, EventArgs e)
         {
             this.Height = locationY + 3;
+            this.Width = panelSize;
             BorderPanel1.Size = new Size(this.Width, 1);
             BorderPanel2.Size = new Size(this.Width, 1);
             BorderPanel2.Location = new Point(0, this.Height - 1);
@@ -48,6 +50,8 @@ namespace DarkNotepad
             {
                 pb.BringToFront();
             }
+
+            this.Update();
         }
 
         public void createCheckedButton(object sender, EventArgs e)
@@ -73,7 +77,7 @@ namespace DarkNotepad
             btn.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             btn.Location = new System.Drawing.Point(1, locationY);
             btn.Name = btnText;
-            btn.Size = new System.Drawing.Size(229, ButtonHeight);
+            btn.Size = new System.Drawing.Size(panelSize - 2, ButtonHeight);
             btn.TabIndex = 2;
             btn.Text = "     " + btnText;
             btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -113,7 +117,7 @@ namespace DarkNotepad
             pnl.BackColor = SStylize.Background_Highlight;
             pnl.Location = new System.Drawing.Point(offset, locationY + 3);
             pnl.Name = "BorderPanel1";
-            pnl.Size = new System.Drawing.Size(this.Width - (offset * 2), 1);
+            pnl.Size = new System.Drawing.Size(panelSize - (offset * 2), 1);
             pnl.TabIndex = 0;
 
             this.Controls.Add(pnl);

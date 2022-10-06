@@ -9,27 +9,31 @@ namespace DarkNotepad
     {
         private int locationX = 258;
         private int ButtonHeight = 26;
-        private Notepad dnp = new Notepad();
+
         private bool FirstButton = true;
+        public bool finishedLoading = false;
+
+        private Notepad dnp = new Notepad(String.Empty);
         private SettingsStylize SStylize = SettingsStylize.Default;
 
         public WarningBox(string comment)
         {
             InitializeComponent();
             updateThemeColors();
-            label1.Text = comment;
 
+            label1.Text = comment;
             comment = null;
 
             if (Application.OpenForms.OfType<Notepad>().Any())
-            {
                 dnp = Application.OpenForms.OfType<Notepad>().First();
-            }
+
+            finishedLoading = true;
         }
 
+                //  This function allows the Developer to add however many buttons needed.
+                //  These buttons call for a method by name on 'Form1'
         public void createButton(object sender, EventArgs e, string btnText, string methodName, int ButtonWidth)
         {
-
             if (FirstButton)
             {
                 locationX = this.Width - 23 - ButtonWidth;
@@ -41,7 +45,6 @@ namespace DarkNotepad
             }
 
             Button btn = new Button();
-
             btn.BackColor = SStylize.Button;
             btn.FlatAppearance.BorderColor = SStylize.Button_Border;
             btn.FlatAppearance.MouseDownBackColor = SStylize.Button_Pressed;
@@ -58,7 +61,7 @@ namespace DarkNotepad
             btn.UseVisualStyleBackColor = true;
             btn.Click += (sender2, e2) => dnp.invokeMethod(sender, e, methodName);
 
-            this.Controls.Add(btn);
+            Controls.Add(btn);
             btn.Focus();
             btn.BringToFront();
 
@@ -76,17 +79,17 @@ namespace DarkNotepad
         }
         public void updateThemeColors()
         {
-            this.BackColor = SStylize.Background;
-            this.ForeColor = SStylize.Text;
+            BackColor = SStylize.Background;
+            ForeColor = SStylize.Text;
             label1.BackColor = SStylize.Background;
             label1.ForeColor = SStylize.Text;
             panel2.BackColor = SStylize.Background_Highlight;
-            int Rvalue = (SStylize.Background.R +
-                SStylize.Background_Highlight.R) / 2;
-            int Gvalue = (SStylize.Background.G +
-                SStylize.Background_Highlight.G) / 2;
-            int Bvalue = (SStylize.Background.B +
-                SStylize.Background_Highlight.B) / 2;
+
+                    //  This is a custom color that blends between 'Background' and
+                    //  'Background_Highlight'.
+            int Rvalue = (SStylize.Background.R + SStylize.Background_Highlight.R) / 2;
+            int Gvalue = (SStylize.Background.G + SStylize.Background_Highlight.G) / 2;
+            int Bvalue = (SStylize.Background.B + SStylize.Background_Highlight.B) / 2;
             if (Rvalue > 255 || Gvalue > 255 || Bvalue > 255 ||
                 Rvalue < 0 || Gvalue < 0 || Bvalue < 0)
             {

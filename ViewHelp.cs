@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace DarkNotepad
 {
-    //  For more help head to: https://github.com/000Daniel
+            //  For more help head to: https://github.com/000Daniel
     public partial class ViewHelp : Form
     {
         private Notepad dnp;
@@ -33,6 +34,7 @@ namespace DarkNotepad
             }
         }
 
+                //  This displays the shortcuts.
         private void button1_Click(object sender, EventArgs e)
         {
             flowLayoutPanel1.Visible = true;
@@ -40,6 +42,7 @@ namespace DarkNotepad
             label1.Text = "Shortcuts:";
         }
 
+                //  This displays the settings.
         private void button3_Click(object sender, EventArgs e)
         {
             flowLayoutPanel1.Visible = false;
@@ -51,6 +54,7 @@ namespace DarkNotepad
         {
             settingsPanel.Visible = false;
             textBox1.Text = Settings1.Default.CustomBrowserURL;
+            button4.Text = Settings1.Default.Encode.ToString();
             updateURL();
             updateRadioButtons();
         }
@@ -144,6 +148,31 @@ namespace DarkNotepad
             updateRadioButtons();
             updateURL();
         }
+
+                //  This button creates a context menu using the 'ContextMenu' script.
+                //  This allows the user to change the Encoding (for saving a file).
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ContextMenu cxm = new ContextMenu();
+            cxm.ShowInTaskbar = false;
+            cxm.panelSize = 136;
+            cxm.createButton(sender, e, "ASCII", "Encode1");
+            cxm.createButton(sender, e, "Latin1", "Encode2");
+            cxm.createButton(sender, e, "UTF-32", "Encode3");
+            cxm.createButton(sender, e, "UTF-16 Unicode", "Encode4");
+            cxm.createButton(sender, e, "UTF-16 BE", "Encode5");
+            cxm.createButton(sender, e, "UTF-8", "Encode6");
+            cxm.createButton(sender, e, "UTF-7", "Encode7");
+
+            cxm.Show();
+
+            int Xpos = button4.Location.X + backgroundPanel.Location.X + settingsPanel.Location.X + this.Left + 7;
+            int Ypox = button4.Location.Y + backgroundPanel.Location.Y + settingsPanel.Location.Y + button4.Size.Height + 30 + this.Top;
+            cxm.Location = new Point(Xpos, Ypox);
+
+            cxm = null;
+        }
+
         public void updateThemeColors()
         {
             SettingsStylize SStylize = SettingsStylize.Default;
@@ -164,6 +193,10 @@ namespace DarkNotepad
             button3.FlatAppearance.MouseOverBackColor = SStylize.Button_Highlight;
             button3.FlatAppearance.MouseDownBackColor = SStylize.Button_Pressed;
             button3.ForeColor = SStylize.Button_Text;
+            button4.BackColor = SStylize.Button;
+            button4.ForeColor = SStylize.Text;
+            button4.FlatAppearance.MouseDownBackColor = SStylize.Button_Pressed;
+            button4.FlatAppearance.MouseOverBackColor = SStylize.Button_Highlight;
             backgroundPanel.BackColor = SStylize.Background_Highlight;
             label1.ForeColor = SStylize.Text;
             label1.BackColor = SStylize.Background_Highlight;

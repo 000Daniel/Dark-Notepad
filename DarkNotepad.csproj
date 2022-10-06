@@ -5,6 +5,13 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Assets\DarkNotepadSimpleIcon.ico</ApplicationIcon>
+    <Company>000Daniel</Company>
+    <Authors>000Daniel</Authors>
+    <Version>1.0.1</Version>
+    <Copyright>000Daniel</Copyright>
+    <Description>This is a recreation of Microsoft's Notepad in C# with dark mode.</Description>
+    <PackageProjectUrl>https://github.com/000Daniel/Dark-Notepad</PackageProjectUrl>
+    <AnalysisLevel>5.0</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,12 +28,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="CustomControls">
-      <HintPath>CustomControls.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

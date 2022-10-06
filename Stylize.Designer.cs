@@ -81,8 +81,9 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.Save_Button = new System.Windows.Forms.Button();
-            this.Load_Button = new System.Windows.Forms.Button();
+            this.Import_Button = new System.Windows.Forms.Button();
             this.Reset = new System.Windows.Forms.Button();
+            this.Export_Button = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.Preview_PanelHighlight.SuspendLayout();
@@ -714,9 +715,9 @@
             this.Exit_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
             this.Exit_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Exit_Button.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Exit_Button.Location = new System.Drawing.Point(350, 420);
+            this.Exit_Button.Location = new System.Drawing.Point(363, 420);
             this.Exit_Button.Name = "Exit_Button";
-            this.Exit_Button.Size = new System.Drawing.Size(90, 26);
+            this.Exit_Button.Size = new System.Drawing.Size(80, 26);
             this.Exit_Button.TabIndex = 18;
             this.Exit_Button.Text = "Cancel";
             this.Exit_Button.UseCompatibleTextRendering = true;
@@ -763,30 +764,31 @@
             this.Save_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
             this.Save_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Save_Button.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Save_Button.Location = new System.Drawing.Point(250, 420);
+            this.Save_Button.Location = new System.Drawing.Point(277, 420);
             this.Save_Button.Name = "Save_Button";
-            this.Save_Button.Size = new System.Drawing.Size(90, 26);
+            this.Save_Button.Size = new System.Drawing.Size(80, 26);
             this.Save_Button.TabIndex = 22;
             this.Save_Button.Text = "Save";
             this.Save_Button.UseCompatibleTextRendering = true;
             this.Save_Button.UseVisualStyleBackColor = true;
             this.Save_Button.Click += new System.EventHandler(this.Save_Button_Click);
             // 
-            // Load_Button
+            // Import_Button
             // 
-            this.Load_Button.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.Load_Button.FlatAppearance.BorderSize = 2;
-            this.Load_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
-            this.Load_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
-            this.Load_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Load_Button.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Load_Button.Location = new System.Drawing.Point(17, 420);
-            this.Load_Button.Name = "Load_Button";
-            this.Load_Button.Size = new System.Drawing.Size(90, 26);
-            this.Load_Button.TabIndex = 24;
-            this.Load_Button.Text = "Load";
-            this.Load_Button.UseCompatibleTextRendering = true;
-            this.Load_Button.UseVisualStyleBackColor = true;
+            this.Import_Button.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.Import_Button.FlatAppearance.BorderSize = 2;
+            this.Import_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
+            this.Import_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
+            this.Import_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Import_Button.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Import_Button.Location = new System.Drawing.Point(12, 420);
+            this.Import_Button.Name = "Import_Button";
+            this.Import_Button.Size = new System.Drawing.Size(80, 26);
+            this.Import_Button.TabIndex = 24;
+            this.Import_Button.Text = "Import";
+            this.Import_Button.UseCompatibleTextRendering = true;
+            this.Import_Button.UseVisualStyleBackColor = true;
+            this.Import_Button.Click += new System.EventHandler(this.Import_Button_Click);
             // 
             // Reset
             // 
@@ -796,21 +798,39 @@
             this.Reset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
             this.Reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Reset.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Reset.Location = new System.Drawing.Point(117, 420);
+            this.Reset.Location = new System.Drawing.Point(191, 420);
             this.Reset.Name = "Reset";
-            this.Reset.Size = new System.Drawing.Size(90, 26);
+            this.Reset.Size = new System.Drawing.Size(80, 26);
             this.Reset.TabIndex = 23;
             this.Reset.Text = "Reset";
             this.Reset.UseCompatibleTextRendering = true;
             this.Reset.UseVisualStyleBackColor = true;
             this.Reset.Click += new System.EventHandler(this.Reset_Click);
             // 
+            // Export_Button
+            // 
+            this.Export_Button.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.Export_Button.FlatAppearance.BorderSize = 2;
+            this.Export_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
+            this.Export_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
+            this.Export_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Export_Button.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Export_Button.Location = new System.Drawing.Point(98, 420);
+            this.Export_Button.Name = "Export_Button";
+            this.Export_Button.Size = new System.Drawing.Size(80, 26);
+            this.Export_Button.TabIndex = 25;
+            this.Export_Button.Text = "Export";
+            this.Export_Button.UseCompatibleTextRendering = true;
+            this.Export_Button.UseVisualStyleBackColor = true;
+            this.Export_Button.Click += new System.EventHandler(this.Export_Button_Click);
+            // 
             // Stylize
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(453, 458);
-            this.Controls.Add(this.Load_Button);
+            this.ClientSize = new System.Drawing.Size(453, 460);
+            this.Controls.Add(this.Export_Button);
+            this.Controls.Add(this.Import_Button);
             this.Controls.Add(this.Reset);
             this.Controls.Add(this.Save_Button);
             this.Controls.Add(this.panel4);
@@ -887,7 +907,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button Save_Button;
-        private System.Windows.Forms.Button Load_Button;
+        private System.Windows.Forms.Button Import_Button;
         private System.Windows.Forms.Button Reset;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel Preview_PanelHighlight2;
@@ -901,5 +921,6 @@
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label Preview_ErrorLabel;
+        private System.Windows.Forms.Button Export_Button;
     }
 }

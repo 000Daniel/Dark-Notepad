@@ -23,5 +23,26 @@
     <Setting Name="MatchCase" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Encode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">UTF-8</Value>
+    </Setting>
+    <Setting Name="PS_Margin1" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">20, 20</Value>
+    </Setting>
+    <Setting Name="PS_Margin2" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">25, 25</Value>
+    </Setting>
+    <Setting Name="PS_Header" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PS_Footer" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PS_Portrait" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PS_Size" Type="System.String" Scope="User">
+      <Value Profile="(Default)">A4</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

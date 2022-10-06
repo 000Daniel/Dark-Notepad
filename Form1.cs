@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace DarkNotepad
 {
@@ -32,9 +33,21 @@ namespace DarkNotepad
         private int completeSelectionStart;
         private bool SelectionToRight = false;
 
-        public Notepad()
+        private string[] files = Array.Empty<string>();
+        private bool OpenedDragFile = false;
+
+        public Notepad(string Arg)
         {
             InitializeComponent();
+
+            if (File.Exists(Arg))
+            {
+                //fileName = Path.GetFileName(Arg);
+                //fileDirectory = Path.GetDirectoryName(Arg);
+                //Debug.WriteLine(Arg);
+                files = new string[] { Arg };
+                openDroppedFile();
+            }
 
             SendMessage(this.Handle, WM_SETICON, ICON_SMALL, Resource1.DarkNotepadSimpleIcon.Handle);
             SendMessage(this.Handle, WM_SETICON, ICON_BIG, Resource1.DarkNotepadIcon.Handle);
@@ -52,7 +65,7 @@ namespace DarkNotepad
             Button5DefPos = button5.Location;
         }
 
-                //  Whenever the main Form is resized update the size of all controls.
+        //  Whenever the main Form is resized update the size of all controls.
         private void Notepad_Resize(object sender, EventArgs e)
         {
             panel1.Width = this.Width;
@@ -64,12 +77,17 @@ namespace DarkNotepad
                     this.Height - panel1.Location.Y - 61);
                 CaretChange.Enabled = true;
 
-                pictureBox1.Location = new Point(StatusPanel.Size.Width - 30,0);
+                pictureBox1.Location = new Point(StatusPanel.Size.Width - 30, 0);
                 StatusInnerPanel.Location = new Point(StatusPanel.Size.Width - 136, 0);
                 StatusInnerPanel2.Location = new Point(StatusPanel.Size.Width - 242, 0);
+                StatusInnerPanel3.Location = new Point(StatusPanel.Size.Width - 348, 0);
                 if (StatusInnerPanel2.Location.X <= -2)
                 {
                     StatusInnerPanel2.Location = new Point(-1, 0);
+                }
+                if (StatusInnerPanel3.Location.X <= -2)
+                {
+                    StatusInnerPanel3.Location = new Point(-1, 0);
                 }
             }
             else
@@ -80,7 +98,7 @@ namespace DarkNotepad
             }
             richTextBox1.Location = new Point(0, panel1.Location.Y + 2);
 
-            if(this.WindowState == FormWindowState.Maximized)
+            if (this.WindowState == FormWindowState.Maximized)
             {
                 pictureBox1.Visible = false;
             }
@@ -123,13 +141,20 @@ namespace DarkNotepad
             button5.Location = Button5DefPos;
         }
 
-        public void UpdateTextFont()
+        public void updateTextFont()
         {
             richTextBox1.Font = Settings1.Default.Font;
         }
 
         public void updateFormName()
         {
+                    //  This 'if' statement is necessary so that when the user Drags and
+                    //  Drops a file the software would recognize the file as unmodified.
+            if (OpenedDragFile && TextModded)
+            {
+                TextModded = false;
+                OpenedDragFile = false;
+            }
             if (TextModded)
             {
                 this.Text = String.Format("*{0} - Notepad", fileName);
@@ -148,27 +173,58 @@ namespace DarkNotepad
             }
             richTextBox1.WordWrap = Settings1.Default.WordWrap;
             richTextBox1.AutoWordSelection = false;
+            richTextBox1.EnableAutoDragDrop = false;
+            richTextBox1.AllowDrop = true;
             StatusPanel.Visible = Settings1.Default.StatusBar;
             Settings1.Default.FindNextPrev = String.Empty;
             Settings1.Default.MatchCase = false;
+            Settings1.Default.Encode = "UTF-8";
             Settings1.Default.Save();
             updateFormName();
-            UpdateTextFont();
+            updateTextFont();
             updateThemeColors();
+            updateStatusBar();
             this.Focus();
         }
 
-                //  This function can call other functions by their name,
-                //  This is used by Context Menu buttons and some other forms.
+        private void Notepad_DragDrop(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.None;
+            files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            if (!TextModded)
+            {
+                openDroppedFile();
+                return;
+            }
+            if (Application.OpenForms.OfType<WarningBox>().Any())
+            {
+                return;
+            }
+            SaveCommand = "drop file";
+            WarningBox WB = new WarningBox(String.Format("Do you want to save changes to {0}?", Path.Combine(fileDirectory, fileName)));
+            WB.createButton(null, null, "Cancel", "CloseWarningBox", 70);
+            WB.createButton(null, null, "Don't Save", "openDroppedFile", 90);
+            WB.createButton(null, null, "Save", "SaveFile", 70);
+            WB.StartPosition = FormStartPosition.CenterScreen;
+            WB.Show();
+            WB.BringToFront();
+
+            WB = null;
+            return;
+        }
+
+        //  This function can call other functions by their name,
+        //  This is used by Context Menu buttons and some other forms.
         public void invokeMethod(object sender, EventArgs e, string methodname)
         {
             MethodInfo mi = this.GetType().GetMethod(methodname);
             mi.Invoke(this, null);
         }
 
-                //  The next functions are called by the custom Context Menu
-                //  buttons using the 'invokeMethod' function.
-                //  TestEvent() for example is used to Debug buttons.
+        //  The next functions are called by the custom Context Menu
+        //  buttons using the 'invokeMethod' function.
+        //  TestEvent() for example is used to Debug buttons.
         public void TestEvent()
         {
             Debug.WriteLine("This is a test function for invokeMethod function.");
@@ -186,7 +242,6 @@ namespace DarkNotepad
         }
         public void NewFileCheck()
         {
-
             if (TextModded)
             {
                 if (Application.OpenForms.OfType<WarningBox>().Any()) return;
@@ -232,10 +287,9 @@ namespace DarkNotepad
         {
             if (TextModded)
             {
-                if (Application.OpenForms.OfType<WarningBox>().Any())
-                {
-                    return;
-                }
+                if (Application.OpenForms.OfType<WarningBox>().Any()) return;
+
+                SaveCommand = "open file";
                 WarningBox WB = new WarningBox(String.Format("Do you want to save changes to {0}?", Path.Combine(fileDirectory, fileName)));
                 WB.createButton(null, null, "Cancel", "CloseWarningBox", 70);
                 WB.createButton(null, null, "Don't Save", "ForceOpenFile", 90);
@@ -300,10 +354,36 @@ namespace DarkNotepad
             CloseContextMenu();
             CloseWarningBox();
 
+            Encoding enc = Encoding.Default;
+            switch (Settings1.Default.Encode)
+            {
+                case "ASCII":
+                    enc = Encoding.ASCII;
+                    break;
+                case "Latin1":
+                    enc = Encoding.Latin1;
+                    break;
+                case "UTF-32":
+                    enc = Encoding.UTF32;
+                    break;
+                case "UTF-16 LE":
+                    enc = Encoding.Unicode;
+                    break;
+                case "UTF-16 BE":
+                    enc = Encoding.BigEndianUnicode;
+                    break;
+                case "UTF-8":
+                    enc = Encoding.UTF8;
+                    break;
+                case "UTF-7":
+                    enc = Encoding.UTF7;
+                    break;
+            }
+
             if (File.Exists(Path.Combine(fileDirectory, fileName)) &&
                 fileDirectory != String.Empty && !ForceSaveAs)
             {
-                StreamWriter sw = new StreamWriter(File.OpenWrite(Path.Combine(fileDirectory, fileName)));
+                StreamWriter sw = new StreamWriter(File.Create(Path.Combine(fileDirectory, fileName)), enc);
                 sw.Write(richTextBox1.Text);
                 sw.Dispose();
             }
@@ -325,7 +405,8 @@ namespace DarkNotepad
 
                 if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
 
-                StreamWriter sw = new StreamWriter(File.Create(sfd.FileName));
+                
+                StreamWriter sw = new StreamWriter(File.Create(sfd.FileName), enc);
                 sw.Write(richTextBox1.Text);
                 sw.Dispose();
 
@@ -344,9 +425,30 @@ namespace DarkNotepad
             {
                 NewFile();
             }
+            if (SaveCommand == "open file")
+            {
+                OpenFile();
+            }
+            if (SaveCommand == "drop file")
+            {
+                openDroppedFile();
+            }
             SaveCommand = String.Empty;
             updateFormName();
             richTextBox1.Focus();
+        }
+        public void openDroppedFile()
+        {
+            CloseWarningBox();
+            OpenedDragFile = true;
+            richTextBox1.Text = File.ReadAllText(files[0]);
+            fileName = Path.GetFileName(files[0]);
+            fileDirectory = Path.GetDirectoryName(files[0]);
+
+            updateFormName();
+            richTextBox1.Focus();
+
+            files = Array.Empty<string>();
         }
 
         public void UndoFunc()
@@ -441,7 +543,7 @@ namespace DarkNotepad
                 }
                 catch (Exception other)
                 {
-                    WarningBox WB = new WarningBox(String.Format("Error!\n{0}", other.Message));
+                    WarningBox WB = new WarningBox(String.Format("{0}", other.Message));
                     WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
                     WB.StartPosition = FormStartPosition.CenterScreen;
                     WB.Show();
@@ -456,6 +558,8 @@ namespace DarkNotepad
             CloseContextMenu();
             richTextBox1.Focus();
             richTextBox1.SelectAll();
+            completeSelectionStart = -1;
+            SelectionToRight = false;
         }
         public void TimeDateFunc()
         {
@@ -562,6 +666,20 @@ namespace DarkNotepad
                 Application.OpenForms.OfType<Stylize>().First().BringToFront();
                 Application.OpenForms.OfType<Stylize>().First().Focus();
             }
+            else
+            {
+                Stylize SStyle = new Stylize();
+                if (Application.OpenForms.OfType<WarningBox>().Any())
+                {
+                    SStyle.reset_Theme();
+                    CloseWarningBox();
+                }
+                else
+                {
+                    SStyle.Reset_Click(null, null);
+                }
+                SStyle.Dispose();
+            }
         }
         public void SendFeedback()
         {
@@ -576,11 +694,146 @@ namespace DarkNotepad
                 Debug.WriteLine("Error!:\n" + ex.Message);
             }
         }
+        public void PageSetupMenu()
+        {
+            PageSetup PS = new PageSetup();
+            PS.StartPosition = FormStartPosition.CenterScreen;
+            PS.Show();
+            PS.BringToFront();
+            PS = null;
+        }
+                //  These are the encoders which the software uses to save files.
+                //  By default the software would use UTF-8.
+        public void Encode1()
+        {
+            EncodeStr("ASCII");
+        }
+        public void Encode2()
+        {
+            EncodeStr("Latin1");
+        }
+        public void Encode3()
+        {
+            EncodeStr("UTF-32");
+        }
+        public void Encode4()
+        {
+            EncodeStr("UTF-16 LE");
+        }
+        public void Encode5()
+        {
+            EncodeStr("UTF-16 BE");
+        }
+        public void Encode6()
+        {
+            EncodeStr("UTF-8");
+        }
+        public void Encode7()
+        {
+            EncodeStr("UTF-7");
+        }
+        public void EncodeStr(string str)
+        {
+            CloseContextMenu();
+            Settings1.Default.Encode = str;
+            Settings1.Default.Save();
+            if (Application.OpenForms.OfType<ViewHelp>().Any())
+            {
+                Application.OpenForms.OfType<ViewHelp>().First().button4.Text = Settings1.Default.Encode.ToString(); ;
+            }
+            updateStatusBar();
+        }
 
-        //  These functions handle the custom Context Menu script.
-        //  cxm is the context menu that these functions add buttons to,
-        //  the createButton function also takes a method name which it would
-        //  call(on this script) when pressed.
+
+        /*  These are the paper sizes supported. 
+         *  THIS FEATURE MIGHT NOT WORK AT ALL! IT HAS NOT BEEN TESTED!
+         *  (Inches)
+            A3 (11.7, 16.5)
+            A4 (8,3 11.7)
+            A5 (5.8, 8.3)
+            A6 (4.13, 5.83) --Not supported
+            B4 (9.84, 13.90)
+            B5 (6.93, 9.84)
+            Legal (8.50, 13.21)
+            Letter (8.50, 11.00)
+            Ledger (11, 17)
+            Tabloid (17, 11)
+            C2 (25.51,18.03)
+            C3 (18.03, 12.76)
+            D0 (42.91, 30.35)
+        */
+        public void PS_PaperSize1()
+        {
+            PS_PaperSize("A3");
+        }
+        public void PS_PaperSize2()
+        {
+            PS_PaperSize("A4");
+        }
+        public void PS_PaperSize3()
+        {
+            PS_PaperSize("A5");
+        }
+        public void PS_PaperSize4()     //  Out of support due to size printing issues.
+        {
+            PS_PaperSize("A6");
+        }
+        public void PS_PaperSize5()
+        {
+            PS_PaperSize("B4");
+        }
+        public void PS_PaperSize6()
+        {
+            PS_PaperSize("B5");
+        }
+        public void PS_PaperSize7()
+        {
+            PS_PaperSize("Legal");
+        }
+        public void PS_PaperSize8()
+        {
+            PS_PaperSize("Letter");
+        }
+        public void PS_PaperSize9()
+        {
+            PS_PaperSize("Ledger");
+        }
+        public void PS_PaperSize10()
+        {
+            PS_PaperSize("Tabloid");
+        }
+        public void PS_PaperSize11()
+        {
+            PS_PaperSize("C2");
+        }
+        public void PS_PaperSize12()
+        {
+            PS_PaperSize("C3");
+        }
+        public void PS_PaperSize13()
+        {
+            PS_PaperSize("D0");
+        }
+        public void PS_PaperSize(string str)
+        {
+            CloseContextMenu();
+            if (Application.OpenForms.OfType<PageSetup>().Any())
+            {
+                Application.OpenForms.OfType<PageSetup>().First().button1.Text = str;
+                Application.OpenForms.OfType<PageSetup>().First().button4_Click(null, null);
+            }
+        }
+        public void PrintFile()
+        {
+            CloseContextMenu();
+                //  PagePrint class is responsible for printing.
+            new PagePrint().Start(richTextBox1.Text, richTextBox1.Font);
+        }
+
+                //  These functions handle the custom Context Menu script.
+                //  cxm is the context menu that these functions add buttons to,
+                //  the 'createButton' function also takes a method name which it would
+                //  call(on this script) when pressed.
         private void button1_Click(object sender, EventArgs e)
         {
             ContextMenu cxm = new ContextMenu();
@@ -591,8 +844,8 @@ namespace DarkNotepad
             cxm.createButton(sender, e, "Save", "SaveFile");
             cxm.createButton(sender, e, "Save As...", "ForceSaveFile");
             cxm.createPanelLine(sender, e, 4);
-            cxm.createButton(sender, e, "Page Setup...(Not Supported)", "TestEvent");
-            cxm.createButton(sender, e, "Print...(Not Supported)", "TestEvent");
+            cxm.createButton(sender, e, "Page Setup...", "PageSetupMenu");
+            cxm.createButton(sender, e, "Print...", "PrintFile");
             cxm.createPanelLine(sender, e, 4);
             cxm.createButton(sender, e, "Exit", "ExitSoftware");
             cxm.Show();
@@ -767,6 +1020,10 @@ namespace DarkNotepad
             {
                 Application.OpenForms.OfType<Stylize>().First().BringToFront();
             }
+            if (Application.OpenForms.OfType<WarningBox>().Any(form => form.Text == "Printing"))
+            {
+                Application.OpenForms.OfType<WarningBox>().First(form => form.Text == "Printing").Dispose();
+            }
             if (Application.OpenForms.OfType<WarningBox>().Any())
             {
                 Application.OpenForms.OfType<WarningBox>().First().BringToFront();
@@ -787,13 +1044,20 @@ namespace DarkNotepad
                 Application.OpenForms.OfType<ViewHelp>().First().BringToFront();
                 return;
             }
+            if (Application.OpenForms.OfType<PageSetup>().Any())
+            {
+                Application.OpenForms.OfType<PageSetup>().First().BringToFront();
+                return;
+            }
         }
 
                 //  This function handles whether to add a '*' to the title or not.
+                //  '*' means the file has been edited but not saved.
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
             if (fileName == "Untitled" && fileDirectory == String.Empty
-                && richTextBox1.Text == String.Empty)
+                && richTextBox1.Text == String.Empty
+                || files.Count() >= 1 && files[0] == String.Empty)
             {
                 return;
             }
@@ -820,8 +1084,9 @@ namespace DarkNotepad
                     - richTextBox1.GetFirstCharIndexFromLine(Ln);
             }
 
-            statusLabel1.Text = String.Format("{0}%", oldZoomFactor);
-            statusLabel2.Text = String.Format("Ln {0},Col {1}", Ln + 1, Col + 1);
+            statusLabel1.Text = String.Format("{0}", Settings1.Default.Encode);
+            statusLabel2.Text = String.Format("{0}%", oldZoomFactor);
+            statusLabel3.Text = String.Format("Ln {0},Col {1}", Ln + 1, Col + 1);
         }
 
         private void Notepad_FormClosing(object sender, FormClosingEventArgs e)
@@ -845,6 +1110,7 @@ namespace DarkNotepad
             WB = null;
         }
 
+                //  Every 10 seconds the software runs a Garbage Collection.
         private void CollectGarbage_Tick(object sender, EventArgs e)
         {
             GC.Collect();
@@ -891,6 +1157,11 @@ namespace DarkNotepad
                 e.Handled = true;
                 ForceSaveFile();
             }
+            if (e.Control && e.KeyCode == Keys.P)
+            {
+                e.Handled = true;
+                PrintFile();
+            }
             if (e.Control && e.KeyCode == Keys.E)
             {
                 e.Handled = true;
@@ -933,6 +1204,11 @@ namespace DarkNotepad
                 e.Handled = true;
                 TimeDateFunc();
             }
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                e.Handled = true;
+                SelectAllFunc();
+            }
             if (e.Control && (e.KeyCode == Keys.Oemplus || e.KeyCode == Keys.Add))
             {
                 e.Handled = true;
@@ -957,6 +1233,7 @@ namespace DarkNotepad
             if (e.Control && e.KeyCode == Keys.R)
             {
                 e.Handled = true;
+                ResetThemes();
             }
         }
 
@@ -971,7 +1248,7 @@ namespace DarkNotepad
         }
 
                 //  This function is responsible for beginning to update the status bar
-                //  info, (Ln,Col) and Zoom factor.
+                //  info, (Ln,Col), Zoom factor and Encoder.
         private void CaretChange_Tick(object sender, EventArgs e)
         {
             if (!Settings1.Default.StatusBar) return;
@@ -999,9 +1276,11 @@ namespace DarkNotepad
                 //  This function determines whether the user is selecting left to right
                 //  or right to left.
                 //  this is used for the status bar (Ln, Col)
+                //  KNOWN ISSUE: sometimes when ctrl+A the Ln,Col reset to 1, 1.
         private void richTextBox1_SelectionChanged(object sender, EventArgs e)
         {
             if (!Settings1.Default.StatusBar) return;
+            if (completeSelectionStart == -1) return;
             SelectionToRight = false;
 
             if (richTextBox1.SelectionStart > completeSelectionStart)
