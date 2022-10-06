@@ -1,5 +1,5 @@
 # Dark-Notepad
-    This is a recreation of Microsoft's Notepad in C#, and it also supports themes. <br />
+    DarkNotepad is a recreation of Microsoft's Notepad in C#, and it also supports themes. <br />
     This software was primarily meant to run on Microsoft's Windows 10 and was written in <br />
     C# DOTNET 5.0 using the WinForms library. <br />
     <br />
@@ -24,6 +24,28 @@
     This software should work on any Windows 10 system with or without dotnet installed. <br />
     Since this software was written in C# it might use higher RAM resources when compared to Microsoft's notepad.
     I do not take any responsibility for any kind of damage this software might cause with unintended uses. <br />
+    <br />
+    <br />
+## Change Log
+### Version 1.0.1
+- Added printing support. `file` -> `Print...`
+- Added print settings. `file` -> `Page Setup...` Known issues: <br />
+Footer might sometimes print incorrectly <br />
+Page size (A4 etc') might not work! <br />
+- Added theme import and export themes: <br />
+This feature uses custom .config files. <br />
+- Added support for more text encoders: <br />
+ASCII, Latin1, UTF-32, UTF-16 Unicode, UTF-16 BE, UTF-8, UTF-7. <br />
+- Added file drag n drop support, both to drop into the .exe or into the editor itself. <br />
+- Added shortcuts: <br />
+Reset Theme: Ctrl+R <br />
+Print menu: Ctrl+P <br />
+- Fixed an issue with saving files. <br />
+- Fixed some styling to be more consistent: <br />
+Removed borders from context menu buttons in the text editor. <br />
+Added current encoder to status bar. <br />
+- Added more comments to the source code. <br />
+- Optimized some code and made it more readable. <br />
 <br />
 <br />
 <br />
