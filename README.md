@@ -29,7 +29,8 @@
 ## Note before installing
     This software should work on any Windows 10 system with or without dotnet installed. <br />
     Since this software was written in C# it might use higher RAM resources when compared to Microsoft's notepad. <br />
-    I do not take any responsibility for any kind of damage this software might cause with unintended or unresponsible uses. <br />
+    I do not take any responsibility for any kind of damage this software might cause with unintended or <br />
+    unresponsible uses. <br />
     <br />
     <br />
 ## Change Log
