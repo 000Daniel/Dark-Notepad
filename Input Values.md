@@ -1,3 +1,4 @@
+(Legacy document for version 1.0.1)
 # Changing Header and Footer Commands in Dark Notepad
 <br />
 When using Dark Notepad you can change the header and footer of a document. <br />
