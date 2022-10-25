@@ -55,4 +55,25 @@
 12. ### When I disable the 'Edit With DarkNotepad' it doesn't disappear from the context menu.
      In `Help` -> `View Help` -> `Settings` -> check and then uncheck the `Registry` setting a few times. <br/>
      each time the software would ask for administrator privileges, pressing `No` would cancel the action.
-   
+     
+     <br/>
+
+13. ### How do I uninstall Dark-Notepad? (Auto)
+     If you've already deleted the [installation(.msi) media file]((https://github.com/000Daniel/Dark-Notepad/releases), redownload it. <br/>
+     Right click on the installation media file and choose `Uninstall`. <br/>
+     If you get an error you'll need to install a newer version first.
+          
+     <br/>
+
+14. ### How do I uninstall Dark-Notepad? (Manual)
+     First delete the Dark-Notepad folder that contains the executable(.exe) file. <br/>
+     Then through [Registry Editor](https://en.wikipedia.org/wiki/Windows_Registry) delete the `HKEY_CLASSES_ROOT\*\shell\DarkNotepad` key(DO THIS AT YOUR OWN RISK).
+     <br/>
+     [How to open Registry Editor in Windows 10](https://support.microsoft.com/en-us/windows/how-to-open-registry-editor-in-windows-10-deab38e6-91d6-e0aa-4b7c-8878d9e07b11).
+          
+     <br/>
+
+15. ### How do I reinstall Dark-Notepad? (Auto)
+     Download the [latest installation media](https://github.com/000Daniel/Dark-Notepad/releases) and run it. <br/>
+     If you are unable to reinstall Dark-Notepad with the installer for any reason, you can install Dark-Notepad manually. <br/>
+     Uninstalling Dark-Notepad before installing it again might also help.
