@@ -14,18 +14,27 @@
     You can also print your documents with a custom Header and Footer! <br />
     <br />
 <p align="center">
-<img src="https://user-images.githubusercontent.com/90350173/194300530-fc91bb4c-e62f-4103-bbe1-b3662513384b.png" width="800" />
+<img src="https://user-images.githubusercontent.com/90350173/198069458-6bc32794-2da9-47a9-a13a-22a65c032b8a.png" width="800" />
 </p>
     <br />
     <br />
     
 ## Stylizing
     As said before there is a Stylizing option: In the software click on `Format` -> `Stylize...` <br />
+    From there you can customize almost everything in Dark-Notepad, down to the Statusbar and Scrollbars!
     There is even a Color Spectrum to choose your colors from! <br />
     <br />
-    <img src="https://user-images.githubusercontent.com/90350173/191742947-42d52fb0-9b88-41b9-be44-73f5b4927500.png" width="450" />
+    <img src="https://user-images.githubusercontent.com/90350173/198069735-cadc3ed9-fb1c-4dde-bad5-9989d21884c2.png" width="450" />
     <br />
     <br />
+## Included Themes
+    From Version 1.0.2 and onward Dark-Notepad will come with a few included themes, here are some of them: <br/>
+    <p align="center">
+<img src="https://user-images.githubusercontent.com/90350173/198072439-ba98520f-1f8f-4422-af6f-bc8dd93b8daa.png" width="800" />
+<img src="https://user-images.githubusercontent.com/90350173/198071764-c8293279-e808-4b34-ba75-1ea94a7cdbe2.png" width="800" />
+<img src="https://user-images.githubusercontent.com/90350173/198071774-badfbf24-11c7-4b36-9683-5e2bf7bc800e.png" width="800" />
+    </p>
+
 ## Note before installing
     This software should work on any Windows 10 system with or without dotnet installed. <br />
     Since this software was written in C# it might use higher RAM resources when compared to Microsoft's notepad. <br />
@@ -105,7 +114,7 @@ Print menu: Ctrl+P <br />
 <br />
 
 This software was programmed in Visual Studio Community 2022 (.Net 5.0).
->Note: This is an early iteration of this program, so expect limitations with this it.
+>Note: This software project is complete and will probably not recieve a lot of support overtime.
 <br />
 
 ```diff
