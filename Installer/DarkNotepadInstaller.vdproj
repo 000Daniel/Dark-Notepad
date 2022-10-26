@@ -15,13 +15,61 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_06D07DD0ECD041C9B0006F697A6AACDC"
+        "MsmKey" = "8:_05E576CDECCC40A0807F1B57EF2B4F5E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_711D0E4C8D3F45EEB0C59DDED84F1D09"
+        "MsmKey" = "8:_073C4FAB47DA458E8575981B90F4C287"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_103BD600A4AB4EC19203D0408FFA4F94"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_19E3D0A1A99644FAA2E91F19F879E847"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1B96C21DB71F43E49D17846B237E81C1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_542E8AD2A05A4510B0C3D91AB1B897FA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6C83BC90D12B4996B1D19E760A9F9DCA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8B7642DD1C6C48D7A8B24D8A5668169B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_91B021D9620D42AE93C6D4F7109F7EA5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_ABD7D2193C40425888ECEBDF2FCD4992"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -122,12 +170,172 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_711D0E4C8D3F45EEB0C59DDED84F1D09"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_073C4FAB47DA458E8575981B90F4C287"
             {
-            "SourcePath" = "8:..\\DarkNotepad\\Assets\\DarkNotepadIcon_128.ico"
-            "TargetName" = "8:DarkNotepadIcon_128.ico"
+            "SourcePath" = "8:..\\DarkNotepad\\themes\\Antarctic Deep theme.config"
+            "TargetName" = "8:Antarctic Deep theme.config"
+            "Tag" = "8:"
+            "Folder" = "8:_7E1980E1B8BD4AE2A9147E8BA59F8597"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_103BD600A4AB4EC19203D0408FFA4F94"
+            {
+            "SourcePath" = "8:..\\DarkNotepad\\themes\\Antarctic Light theme.config"
+            "TargetName" = "8:Antarctic Light theme.config"
+            "Tag" = "8:"
+            "Folder" = "8:_7E1980E1B8BD4AE2A9147E8BA59F8597"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_19E3D0A1A99644FAA2E91F19F879E847"
+            {
+            "SourcePath" = "8:..\\DarkNotepad\\themes\\Green Terminal theme.config"
+            "TargetName" = "8:Green Terminal theme.config"
+            "Tag" = "8:"
+            "Folder" = "8:_7E1980E1B8BD4AE2A9147E8BA59F8597"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1B96C21DB71F43E49D17846B237E81C1"
+            {
+            "SourcePath" = "8:..\\DarkNotepad\\themes\\Anonymous theme.config"
+            "TargetName" = "8:Anonymous theme.config"
+            "Tag" = "8:"
+            "Folder" = "8:_7E1980E1B8BD4AE2A9147E8BA59F8597"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_542E8AD2A05A4510B0C3D91AB1B897FA"
+            {
+            "SourcePath" = "8:..\\DarkNotepad\\themes\\Cyber Cold theme.config"
+            "TargetName" = "8:Cyber Cold theme.config"
+            "Tag" = "8:"
+            "Folder" = "8:_7E1980E1B8BD4AE2A9147E8BA59F8597"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6C83BC90D12B4996B1D19E760A9F9DCA"
+            {
+            "SourcePath" = "8:..\\DarkNotepad\\publish\\themes\\Cooking Forum theme.config"
+            "TargetName" = "8:Cooking Forum theme.config"
+            "Tag" = "8:"
+            "Folder" = "8:_7E1980E1B8BD4AE2A9147E8BA59F8597"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8B7642DD1C6C48D7A8B24D8A5668169B"
+            {
+            "SourcePath" = "8:..\\DarkNotepad\\regkey_repair.bat"
+            "TargetName" = "8:regkey_repair.bat"
             "Tag" = "8:"
             "Folder" = "8:_EA04DB16C6934FEC87B3910832C4154D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:TRUE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_91B021D9620D42AE93C6D4F7109F7EA5"
+            {
+            "SourcePath" = "8:..\\DarkNotepad\\Assets\\DarkNotepadIcon.ico"
+            "TargetName" = "8:DarkNotepadIcon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_EA04DB16C6934FEC87B3910832C4154D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:TRUE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_ABD7D2193C40425888ECEBDF2FCD4992"
+            {
+            "SourcePath" = "8:..\\DarkNotepad\\themes\\Crimson Gold theme.config"
+            "TargetName" = "8:Crimson Gold theme.config"
+            "Tag" = "8:"
+            "Folder" = "8:_7E1980E1B8BD4AE2A9147E8BA59F8597"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -180,6 +388,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_7E1980E1B8BD4AE2A9147E8BA59F8597"
+                    {
+                    "Name" = "8:themes"
+                    "AlwaysCreate" = "11:TRUE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_85F9DCA6F536488B9475DD1FA4A6C94B"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -198,15 +417,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DarkNotepad"
-        "ProductCode" = "8:{BBD2BF62-5CE9-4A4A-9513-F7ED44BBD913}"
-        "PackageCode" = "8:{F7E1E9D0-A804-4416-AFA5-98BBCDC0B805}"
+        "ProductCode" = "8:{12E1E358-F4CE-4EBB-9067-1F0AD4D0BA5B}"
+        "PackageCode" = "8:{31630234-1AB5-4F88-9D5F-B3AA807C38CF}"
         "UpgradeCode" = "8:{84CE43A1-F534-4C50-BF5E-7AC739F0CE63}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
-        "DetectNewerInstalledVersion" = "11:TRUE"
+        "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.1"
+        "ProductVersion" = "8:1.0.2"
         "Manufacturer" = "8:000Daniel"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -399,7 +618,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B6C937FFB5414728A4A7F3FD0E7CA7C7"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9D900373B89942D5811B1060BE531B28"
             {
             "Name" = "8:Dark Notepad"
             "Arguments" = "8:"
@@ -407,10 +626,24 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_06D07DD0ECD041C9B0006F697A6AACDC"
+            "Target" = "8:_05E576CDECCC40A0807F1B57EF2B4F5E"
             "Folder" = "8:_AB5DD21CF5E9457EB52CA0B9A96B987B"
             "WorkingFolder" = "8:_EA04DB16C6934FEC87B3910832C4154D"
-            "Icon" = "8:_711D0E4C8D3F45EEB0C59DDED84F1D09"
+            "Icon" = "8:_91B021D9620D42AE93C6D4F7109F7EA5"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D2C11A12D11849E99B804327C0BFF948"
+            {
+            "Name" = "8:Dark Notepad"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_05E576CDECCC40A0807F1B57EF2B4F5E"
+            "Folder" = "8:_114475F5BF1A4BCF9B015F0F6977E377"
+            "WorkingFolder" = "8:_EA04DB16C6934FEC87B3910832C4154D"
+            "Icon" = "8:_91B021D9620D42AE93C6D4F7109F7EA5"
             "Feature" = "8:"
             }
         }
@@ -812,7 +1045,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_06D07DD0ECD041C9B0006F697A6AACDC"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_05E576CDECCC40A0807F1B57EF2B4F5E"
             {
             "SourcePath" = "8:..\\DarkNotepad\\publish\\DarkNotepad.exe"
             "TargetName" = "8:"
