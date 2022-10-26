@@ -4,10 +4,10 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <ApplicationIcon>Assets\DarkNotepadSimpleIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\DarkNotepadIcon.ico</ApplicationIcon>
     <Company>000Daniel</Company>
     <Authors>000Daniel</Authors>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Copyright>000Daniel</Copyright>
     <Description>This is a recreation of Microsoft's Notepad in C# with dark mode.</Description>
     <PackageProjectUrl>https://github.com/000Daniel/Dark-Notepad</PackageProjectUrl>
@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Assets\DarkNotepadSimpleIcon.ico" />
+    <Content Include="Assets\DarkNotepadIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +35,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resource_masks.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource_masks.resx</DependentUpon>
     </Compile>
     <Compile Update="Settings1.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -52,6 +57,10 @@
     <EmbeddedResource Update="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resource_masks.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource_masks.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

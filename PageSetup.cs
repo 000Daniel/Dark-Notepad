@@ -1,28 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DarkNotepad
 {
     public partial class PageSetup : Form
     {
-        private Settings1 settings;
+        private Settings1 settings = Settings1.Default;
         
         public PageSetup()
         {
             InitializeComponent();
+            textBox1.Leave += new EventHandler((sender,e) => textBoxGeneral_Leave(sender,e,textBox1));
+            textBox2.Leave += new EventHandler((sender,e) => textBoxGeneral_Leave(sender,e,textBox2));
+            textBox3.Leave += new EventHandler((sender,e) => textBoxGeneral_Leave(sender,e,textBox3));
+            textBox4.Leave += new EventHandler((sender,e) => textBoxGeneral_Leave(sender,e,textBox4));
+            textBox1.KeyPress += new KeyPressEventHandler((sender,e) => textBoxGeneral_KeyPress(sender,e,textBox1));
+            textBox2.KeyPress += new KeyPressEventHandler((sender,e) => textBoxGeneral_KeyPress(sender,e,textBox2));
+            textBox3.KeyPress += new KeyPressEventHandler((sender,e) => textBoxGeneral_KeyPress(sender,e,textBox3));
+            textBox4.KeyPress += new KeyPressEventHandler((sender,e) => textBoxGeneral_KeyPress(sender,e,textBox4));
+            textBox1.KeyDown += new KeyEventHandler((sender,e) => textBoxGeneral_KeyDown(sender,e,textBox1));
+            textBox2.KeyDown += new KeyEventHandler((sender,e) => textBoxGeneral_KeyDown(sender,e,textBox2));
+            textBox3.KeyDown += new KeyEventHandler((sender,e) => textBoxGeneral_KeyDown(sender,e,textBox3));
+            textBox4.KeyDown += new KeyEventHandler((sender,e) => textBoxGeneral_KeyDown(sender,e,textBox4));
         }
         private void PageSetup_Load(object sender, EventArgs e)
         {
-            settings = Settings1.Default;
-
             button1.Text = settings.PS_Size;
             if (settings.PS_Portrait)
             {
@@ -48,6 +53,7 @@ namespace DarkNotepad
         {
             this.Close();
         }
+                //  This saves the new settings.
         private void button3_Click(object sender, EventArgs e)
         {
             try
@@ -75,23 +81,18 @@ namespace DarkNotepad
             this.Close();
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBoxGeneral_KeyDown(object sender, KeyEventArgs e, TextBox tb)
         {
-            e.Handled = textBox_KeyPress(sender, e, textBox1);
+            if (e.Control && e.KeyValue == (char)Keys.C)
+            {
+                copyFunc(tb);
+            }
+            if (e.Control && e.KeyValue == (char)Keys.V)
+            {
+                pasteFunc(tb);
+            }
         }
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = textBox_KeyPress(sender, e, textBox2);
-        }
-        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = textBox_KeyPress(sender, e, textBox4);
-        }
-        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = textBox_KeyPress(sender, e, textBox3);
-        }
-        private bool textBox_KeyPress(object sender, KeyPressEventArgs e, TextBox tb)
+        private void textBoxGeneral_KeyPress(object sender, KeyPressEventArgs e, TextBox tb)
         {
             string[] legalChar = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
             foreach (string num in legalChar)
@@ -99,36 +100,51 @@ namespace DarkNotepad
                 if (e.KeyChar.ToString() == num
                     || e.KeyChar == (Char)Keys.Back)
                 {
-                    return false;
+                    return;
                 }
             }
-            return true;
+            e.Handled = true;
+        }
+        private void pasteFunc(TextBox TB)
+        {
+            IDataObject id = Clipboard.GetDataObject();
+            if (id.GetDataPresent(DataFormats.UnicodeText)
+                || id.GetDataPresent(DataFormats.Text)
+                || id.GetDataPresent(DataFormats.Html))
+            {
+                string clipboardText = Clipboard.GetText(TextDataFormat.Text);
+                string txtbxValue = "";
+                string[] legalChar = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+                foreach (char ch in clipboardText)
+                {
+
+                    foreach (string lc in legalChar)
+                    {
+                        if (ch.ToString().Equals(lc))
+                            txtbxValue = txtbxValue + ch;
+                    }
+                }
+
+                TB.SelectedText = txtbxValue;
+            }
+        }
+        private void copyFunc(TextBox TB)
+        {
+            if (TB.SelectedText.Length <= 0) return;
+            Clipboard.SetText(TB.SelectedText);
         }
 
-        private void textBox1_Leave(object sender, EventArgs e)
+                //  This function checks if the text entered in the text boxes(page margins)
+                //  is valid or not. If not set the text to 0.
+        private void textBoxGeneral_Leave(object sender, EventArgs e, TextBox textBox)
         {
-            textBox_Leave(sender, e, textBox1);
-        }
-        private void textBox2_Leave(object sender, EventArgs e)
-        {
-            textBox_Leave(sender, e, textBox2);
-        }
-        private void textBox4_Leave(object sender, EventArgs e)
-        {
-            textBox_Leave(sender, e, textBox4);
-        }
-        private void textBox3_Leave(object sender, EventArgs e)
-        {
-            textBox_Leave(sender, e, textBox3);
-        }
-        private void textBox_Leave(object sender, EventArgs e, TextBox tb)
-        {
-            if (tb.Text == String.Empty)
+            if (textBox.Text == String.Empty || !int.TryParse(textBox.Text, out int i))
             {
-                tb.Text = "0";
+                textBox.Text = "0";
             }
         }
 
+                //  This resizes the preview page.
         public void button4_Click(object sender, EventArgs e)
         {
             Size tempSize = new Size(100,100);
@@ -200,6 +216,7 @@ namespace DarkNotepad
             return new Size((int)(x * 11), (int)(y * 11));
         }
 
+                //  This creates a context menu for all supported page sizes.
         private void button1_Click(object sender, EventArgs e)
         {
             ContextMenu cxm = new ContextMenu();
@@ -249,11 +266,12 @@ namespace DarkNotepad
             button4_Click(null, null);
         }
 
+                //  Opens the github page that's about 'Input Values'
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
             {
-                ProcessStartInfo proc = new ProcessStartInfo("https://github.com/000Daniel/Dark-Notepad/blob/main/Input%20Values.md");
+                ProcessStartInfo proc = new ProcessStartInfo("https://github.com/000Daniel/Dark-Notepad/blob/main/Documents/Input%20Values.md");
                 proc.UseShellExecute = true;
                 Process.Start(proc);
             }
@@ -345,5 +363,7 @@ namespace DarkNotepad
             radioButton2.ForeColor = SStylize.Text;
             radioButton2.BackColor = SStylize.Background_Highlight;
         }
+
+        
     }
 }

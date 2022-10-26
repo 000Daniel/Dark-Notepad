@@ -190,5 +190,65 @@ namespace DarkNotepad {
                 this["PS_Size"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CustomScrollbar {
+            get {
+                return ((bool)(this["CustomScrollbar"]));
+            }
+            set {
+                this["CustomScrollbar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ImportThemeDir {
+            get {
+                return ((string)(this["ImportThemeDir"]));
+            }
+            set {
+                this["ImportThemeDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ExportThemeDir {
+            get {
+                return ((string)(this["ExportThemeDir"]));
+            }
+            set {
+                this["ExportThemeDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RightToLeft {
+            get {
+                return ((bool)(this["RightToLeft"]));
+            }
+            set {
+                this["RightToLeft"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AddRegistryKey {
+            get {
+                return ((bool)(this["AddRegistryKey"]));
+            }
+            set {
+                this["AddRegistryKey"] = value;
+            }
+        }
     }
 }

@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Reflection;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -36,21 +35,48 @@ namespace DarkNotepad
         private string[] files = Array.Empty<string>();
         private bool OpenedDragFile = false;
 
+        CustomScrollbar_Commands CSC = new CustomScrollbar_Commands();
+        ImageGeneration ig = new ImageGeneration();
+        public bool VScrollBar_HoldingUp = false, VScrollBar_HoldingDown = false,
+            HScrollBar_HoldingLeft = false, HScrollBar_HoldingRight = false;
+        public Bitmap VSB_Arrow_Up = null, VSB_Arrow_Up_Press = null,
+            VSB_Arrow_Down = null, VSB_Arrow_Down_Press = null,
+            HSB_Arrow_Left = null, HSB_Arrow_Left_Press = null,
+            HSB_Arrow_Right = null, HSB_Arrow_Right_Press = null,
+            Grab = null, Grab2 = null, Grab2_Empty = null, Grab2_Mirrored = null,
+            Check = null, Check2 = null;
+
+        private FormWindowState lastState;
+
         public Notepad(string Arg)
         {
             InitializeComponent();
 
             if (File.Exists(Arg))
             {
-                //fileName = Path.GetFileName(Arg);
-                //fileDirectory = Path.GetDirectoryName(Arg);
-                //Debug.WriteLine(Arg);
                 files = new string[] { Arg };
                 openDroppedFile();
             }
-
             SendMessage(this.Handle, WM_SETICON, ICON_SMALL, Resource1.DarkNotepadSimpleIcon.Handle);
             SendMessage(this.Handle, WM_SETICON, ICON_BIG, Resource1.DarkNotepadIcon.Handle);
+            richTextBox1.MouseWheel += new MouseEventHandler(richTextBox1_scroll);
+            HScrollBar_Thumb.Height = 15;
+            HScrollBar_Thumb.Top = 1;
+            VScrollBar_Thumb.Width = 15;
+            VScrollBar_Thumb.Left = 1;
+            CSC.dnp = this;
+            VScrollBar_ArrowUp.MouseDown += new MouseEventHandler(CSC.VScrollBar_ArrowUp_MouseDown);
+            VScrollBar_ArrowUp.MouseUp += new MouseEventHandler(CSC.VScrollBar_ArrowUp_MouseUp);
+            VScrollBar_ArrowDown.MouseDown += new MouseEventHandler(CSC.VScrollBar_ArrowDown_MouseDown);
+            VScrollBar_ArrowDown.MouseUp += new MouseEventHandler(CSC.VScrollBar_ArrowDown_MouseUp);
+            HScrollBar_ArrowLeft.MouseDown += new MouseEventHandler(CSC.HScrollBar_ArrowLeft_MouseDown);
+            HScrollBar_ArrowLeft.MouseUp += new MouseEventHandler(CSC.HScrollBar_ArrowLeft_MouseUp);
+            HScrollBar_ArrowRight.MouseDown += new MouseEventHandler(CSC.HScrollBar_ArrowRight_MouseDown);
+            HScrollBar_ArrowRight.MouseUp += new MouseEventHandler(CSC.HScrollBar_ArrowRight_MouseUp);
+            HScrollBar_ArrowLeft.Click += new EventHandler((sender2, e2) => CSC.HScrollBar_ArrowLeft_Click(sender2 ,e2, richTextBox1));
+            HScrollBar_ArrowRight.Click += new EventHandler((sender2, e2) => CSC.HScrollBar_ArrowRight_Click(sender2 ,e2, richTextBox1));
+            VScrollBar_ArrowUp.Click += new EventHandler((sender2, e2) => CSC.VScrollBar_ArrowUp_Click(sender2 ,e2, richTextBox1));
+            VScrollBar_ArrowDown.Click += new EventHandler((sender2, e2) => CSC.VScrollBar_ArrowDown_Click(sender2 ,e2, richTextBox1));
 
             Button3Length = button1.Size.Width +
                 button2.Size.Width +
@@ -63,9 +89,24 @@ namespace DarkNotepad
             Button3DefPos = button3.Location;
             Button4DefPos = button4.Location;
             Button5DefPos = button5.Location;
+
+                    //  This fixes an issue, when minimizing the software could cause
+                    //  The RichTextBox to change size to the wrong size;
+            this.SizeChanged += (s, e) => {
+                if (WindowState == lastState) return;
+                switch (WindowState)
+                {
+                    case FormWindowState.Normal:
+                        Notepad_Resize(null, null);
+                        break;
+                    case FormWindowState.Maximized:
+                        Notepad_Resize(null, null);
+                        break;
+                }
+                lastState = WindowState; };
         }
 
-        //  Whenever the main Form is resized update the size of all controls.
+                //  Whenever the main Form is resized, update the size of all controls.
         private void Notepad_Resize(object sender, EventArgs e)
         {
             panel1.Width = this.Width;
@@ -97,7 +138,8 @@ namespace DarkNotepad
                 CaretChange.Enabled = false;
             }
             richTextBox1.Location = new Point(0, panel1.Location.Y + 2);
-
+            ScrollGraphics();
+            
             if (this.WindowState == FormWindowState.Maximized)
             {
                 pictureBox1.Visible = false;
@@ -141,6 +183,249 @@ namespace DarkNotepad
             button5.Location = Button5DefPos;
         }
 
+                //  'ScrollGraphics()' is responsible for the custom scrollbar graphics.
+                //  This function exists in other classes aswell.
+        public void ScrollGraphics()
+        {
+            MassLoadImages();
+
+            if (Application.OpenForms.OfType<WarningBox>().Any(form => form.Text == "Generating Icons"))
+            {
+                Application.OpenForms.OfType<WarningBox>().First(form => form.Text == "Generating Icons").Dispose();
+            }
+
+            if (!Settings1.Default.CustomScrollbar)
+            {
+                VScrollBar.Visible = false;
+                HScrollBar.Visible = false;
+                VScrollBar_ArrowDown.Visible = false;
+                VScrollBar_ArrowUp.Visible = false;
+                HScrollBar_ArrowLeft.Visible = false;
+                HScrollBar_ArrowRight.Visible = false;
+                ScrollBars_Grip.Visible = false;
+                return;
+            }
+            else
+            {
+                if (!VScrollBar.Visible)
+                {
+                    VScrollBar.Visible = true;
+                    VScrollBar_ArrowDown.Visible = true;
+                    VScrollBar_ArrowUp.Visible = true;
+                    ScrollBars_Grip.Visible = true;
+                }
+            }
+                    //  This determines how should the 'grip' of the custom scrollbars display.
+                    //  It'll display a grip if both scrollbars are enabled and the statusbar
+                    //  disabled. Otherwize it will display empty or won't display at all.
+            if (Settings1.Default.WordWrap || Settings1.Default.StatusBar || WindowState == FormWindowState.Maximized)
+            {
+                ScrollBars_Grip.Image = Grab2_Empty;
+                ScrollBars_Grip.Enabled = false;
+
+                if (Settings1.Default.WordWrap)
+                {
+                    ScrollBars_Grip.Visible = false;
+                }
+                else
+                {
+                    ScrollBars_Grip.Visible = true;
+                }
+            }
+            else
+            {
+                if (richTextBox1.RightToLeft == RightToLeft.Yes)
+                {
+                    ScrollBars_Grip.Cursor = Cursors.SizeNESW;
+                    ScrollBars_Grip.Image = Grab2_Mirrored;
+                }
+                else
+                {
+                    ScrollBars_Grip.Cursor = Cursors.SizeNWSE;
+                    ScrollBars_Grip.Image = Grab2;
+                }
+
+                ScrollBars_Grip.Enabled = true;
+                ScrollBars_Grip.Visible = true;
+            }
+
+            if (Settings1.Default.WordWrap)
+            {
+                HScrollBar.Visible = false;
+                HScrollBar_ArrowLeft.Visible = false;
+                HScrollBar_ArrowRight.Visible = false;
+
+                VScrollBar.Size = new Size(17, richTextBox1.Height - 34);
+                if (richTextBox1.RightToLeft == RightToLeft.Yes)
+                {
+                    VScrollBar.Location = new Point(0, richTextBox1.Top + 17);
+                    VScrollBar_ArrowDown.Location = new Point(0, richTextBox1.Top + richTextBox1.Height - 17);
+                    VScrollBar_ArrowUp.Location = new Point(0, richTextBox1.Top);
+                }
+                else
+                {
+                    VScrollBar.Location = new Point(richTextBox1.Width + richTextBox1.Left - 17, richTextBox1.Top + 17);
+                    VScrollBar_ArrowDown.Location = new Point(richTextBox1.Width + richTextBox1.Left - 17, richTextBox1.Top + richTextBox1.Height - 17);
+                    VScrollBar_ArrowUp.Location = new Point(richTextBox1.Width + richTextBox1.Left - 17, richTextBox1.Top);
+                }
+            }
+            else
+            {
+                HScrollBar.Visible = true;
+                HScrollBar_ArrowLeft.Visible = true;
+                HScrollBar_ArrowRight.Visible = true;
+                HScrollBar.Size = new Size(richTextBox1.Width - 51, 17);
+                VScrollBar.Size = new Size(17, richTextBox1.Height - 51);
+                if (richTextBox1.RightToLeft == RightToLeft.Yes)
+                {
+                    HScrollBar.Location = new Point(34, richTextBox1.Height + richTextBox1.Top - 17);
+                    VScrollBar.Location = new Point(0, richTextBox1.Top + 17);
+
+                    HScrollBar_ArrowLeft.Location = new Point(17, richTextBox1.Height + richTextBox1.Top - 17);
+                    HScrollBar_ArrowRight.Location = new Point(richTextBox1.Width + richTextBox1.Left - 17, richTextBox1.Height + richTextBox1.Top - 17);
+                    VScrollBar_ArrowDown.Location = new Point(0, richTextBox1.Top + richTextBox1.Height - 34);
+                    VScrollBar_ArrowUp.Location = new Point(0, richTextBox1.Top);
+
+                    ScrollBars_Grip.Location = new Point(0, richTextBox1.Height + richTextBox1.Top - 17);
+                }
+                else
+                {
+                    HScrollBar.Location = new Point(17, richTextBox1.Height + richTextBox1.Top - 17);
+                    VScrollBar.Location = new Point(richTextBox1.Width + richTextBox1.Left - 17, richTextBox1.Top + 17);
+
+                    HScrollBar_ArrowLeft.Location = new Point(0, richTextBox1.Height + richTextBox1.Top - 17);
+                    HScrollBar_ArrowRight.Location = new Point(richTextBox1.Width + richTextBox1.Left - 34, richTextBox1.Height + richTextBox1.Top - 17);
+                    VScrollBar_ArrowDown.Location = new Point(richTextBox1.Width + richTextBox1.Left - 17, richTextBox1.Top + richTextBox1.Height - 34);
+                    VScrollBar_ArrowUp.Location = new Point(richTextBox1.Width + richTextBox1.Left - 17, richTextBox1.Top);
+
+                    ScrollBars_Grip.Location = new Point(richTextBox1.Width + richTextBox1.Left - 17, richTextBox1.Height + richTextBox1.Top - 17);
+                }
+            }
+            
+            
+        }
+                //  'MassLoadImages()' checks if it loaded images already or not.
+                //  if not it will load images from the 'temp' folder.
+        private void MassLoadImages()
+        {
+            if (VSB_Arrow_Up == null || VSB_Arrow_Up_Press == null)
+            {
+                VSB_Arrow_Up = ig.LoadImage("Arrow_Up");
+                VScrollBar_ArrowUp.Image = VSB_Arrow_Up;
+                VSB_Arrow_Up_Press = ig.LoadImage("Arrow_Up_Press");
+            }
+            if (VSB_Arrow_Down == null || VSB_Arrow_Down_Press == null)
+            {
+                VSB_Arrow_Down = ig.LoadImage("Arrow_Down");
+                VScrollBar_ArrowDown.Image = VSB_Arrow_Down;
+                VSB_Arrow_Down_Press = ig.LoadImage("Arrow_Down_Press");
+            }
+            if (HSB_Arrow_Left == null || HSB_Arrow_Left_Press == null)
+            {
+                HSB_Arrow_Left = ig.LoadImage("Arrow_Left");
+                HScrollBar_ArrowLeft.Image = HSB_Arrow_Left;
+                HSB_Arrow_Left_Press = ig.LoadImage("Arrow_Left_Press");
+            }
+            if (HSB_Arrow_Right == null || HSB_Arrow_Right_Press == null)
+            {
+                HSB_Arrow_Right = ig.LoadImage("Arrow_Right");
+                HScrollBar_ArrowRight.Image = HSB_Arrow_Right;
+                HSB_Arrow_Right_Press = ig.LoadImage("Arrow_Right_Press");
+            }
+            if (Grab == null || Grab2 == null || Grab2_Empty == null || Grab2_Mirrored == null)
+            {
+                Grab = ig.LoadImage("Grab");
+                pictureBox1.Image = Grab;
+                Grab2 = ig.LoadImage("Grab2");
+                Grab2_Empty = ig.LoadImage("Grab2_Empty");
+                Grab2_Mirrored = ig.LoadImage("Grab2_Mirrored");
+            }
+            if (Check == null || Check2 == null)
+            {
+                Check = ig.LoadImage("Check");
+                Check2 = ig.LoadImage("Check2");
+            }
+        }
+                //  This gives all the data necessary to generate custom icons based
+                //  on theme colors.
+                //  For more information check the 'ImageGeneration' class.
+        public void CreateCustomIcons()
+        {
+            WarningBox WB = new WarningBox("Generating Icons for theme...\nPlease wait");
+            WB.Text = "Generating Icons";
+            WB.StartPosition = FormStartPosition.CenterScreen;
+            WB.Show();
+            WB.BringToFront();
+
+            SettingsStylize SStylize = SettingsStylize.Default;
+
+            VSB_Arrow_Up = null; VSB_Arrow_Up_Press = null;
+            VSB_Arrow_Down = null; VSB_Arrow_Down_Press = null;
+            HSB_Arrow_Left = null; HSB_Arrow_Left_Press = null;
+            HSB_Arrow_Right = null; HSB_Arrow_Right_Press = null;
+            Grab = null; Grab2 = null; Grab2_Empty = null;
+            Check = null; Check2 = null;
+            VScrollBar_ArrowUp.Image = Resource1.Arrow_Up;
+            VScrollBar_ArrowDown.Image = Resource1.Arrow_Down;
+            HScrollBar_ArrowLeft.Image = Resource1.Arrow_Left;
+            HScrollBar_ArrowRight.Image = Resource1.Arrow_Right;
+
+            ig.GenerateImage(Resource_masks.Arrow_Up_Mask,SStylize.Scrollbar_Icon_Background, SStylize.Scrollbar_Icon, "Arrow_Up");
+            ig.GenerateImage(Resource_masks.Arrow_Up_Mask,SStylize.Scrollbar_Icon_Tint, SStylize.Scrollbar_Icon, "Arrow_Up_Press");
+            ig.GenerateImage(Resource_masks.Arrow_Down_Mask,SStylize.Scrollbar_Icon_Background, SStylize.Scrollbar_Icon, "Arrow_Down");
+            ig.GenerateImage(Resource_masks.Arrow_Down_Mask,SStylize.Scrollbar_Icon_Tint, SStylize.Scrollbar_Icon, "Arrow_Down_Press");
+            ig.GenerateImage(Resource_masks.Arrow_Left_Mask,SStylize.Scrollbar_Icon_Background, SStylize.Scrollbar_Icon, "Arrow_Left");
+            ig.GenerateImage(Resource_masks.Arrow_Left_Mask,SStylize.Scrollbar_Icon_Tint, SStylize.Scrollbar_Icon, "Arrow_Left_Press");
+            ig.GenerateImage(Resource_masks.Arrow_Right_Mask,SStylize.Scrollbar_Icon_Background, SStylize.Scrollbar_Icon, "Arrow_Right");
+            ig.GenerateImage(Resource_masks.Arrow_Right_Mask,SStylize.Scrollbar_Icon_Tint, SStylize.Scrollbar_Icon, "Arrow_Right_Press");
+            ig.GenerateImage(Resource_masks.Grab_Mask,SStylize.Status, SStylize.Scrollbar_Icon, "Grab");
+            ig.GenerateImage(Resource_masks.Grab2_Mask,SStylize.Scrollbar_Icon_Background, SStylize.Scrollbar_Icon, "Grab2");
+            ig.GenerateImage(Resource_masks.Grab2_Empty_Mask,SStylize.Scrollbar_Icon_Background, SStylize.Scrollbar_Icon, "Grab2_Empty");
+            ig.GenerateImage(Resource_masks.Grab2_Mirrored_Mask,SStylize.Scrollbar_Icon_Background, SStylize.Scrollbar_Icon, "Grab2_Mirrored");
+            ig.GenerateImage(Resource_masks.Check_Mask,SStylize.Scrollbar_Icon_Background, SStylize.Scrollbar_Icon, "Check");
+            ig.GenerateImage(Resource_masks.Check2_Mask,SStylize.Scrollbar_Icon_Background, SStylize.Scrollbar_Icon, "Check2");
+            ScrollGraphics();
+        }
+                //  This timer changes the size of the scrollbar's 'Thumb'.
+                //  For more info check the 'CustomScrollbar_Commands' class.
+        private void HScrollBarTimer_Tick(object sender, EventArgs e)
+        {
+            if (Settings1.Default.WordWrap) return;
+            CSC.HScrollSelection(richTextBox1.Handle, HScrollBar_Thumb, HScrollBar);
+
+                    //  If user pressing arrows scroll.
+            if (HScrollBar_HoldingLeft)
+                CSC.HScrollBar_ArrowLeft_Click(sender, e,richTextBox1);
+            if (HScrollBar_HoldingRight)
+                CSC.HScrollBar_ArrowRight_Click(sender, e,richTextBox1);
+        }
+                //  This timer changes the size of the scrollbar's 'Thumb'.
+                //  For more info check the 'CustomScrollbar_Commands' class.
+        private void VScrollBarTimer_Tick(object sender, EventArgs e)
+        {
+            CSC.ScrollSelection(richTextBox1.Handle, VScrollBar_Thumb, VScrollBar);
+            
+                    //  If user pressing arrows scroll.
+            if (VScrollBar_HoldingUp)
+                CSC.VScrollBar_ArrowUp_Click(sender, e, richTextBox1);
+            if (VScrollBar_HoldingDown)
+                CSC.VScrollBar_ArrowDown_Click(sender, e, richTextBox1);
+        }
+                //  This enables the user to scroll sideways by holding shift.
+        private void richTextBox1_scroll(object sender, MouseEventArgs e)
+        {
+            if (Control.ModifierKeys != Keys.Shift) return;
+
+            if (e.Delta > 0)
+            {
+                CSC.HScrollBar_ArrowLeft_Click(sender, e,richTextBox1);
+            }
+            else
+            {
+                CSC.HScrollBar_ArrowRight_Click(sender, e,richTextBox1);
+            }
+        }
+
         public void updateTextFont()
         {
             richTextBox1.Font = Settings1.Default.Font;
@@ -175,11 +460,22 @@ namespace DarkNotepad
             richTextBox1.AutoWordSelection = false;
             richTextBox1.EnableAutoDragDrop = false;
             richTextBox1.AllowDrop = true;
+            if (Settings1.Default.RightToLeft)
+            {
+                richTextBox1.RightToLeft = RightToLeft.Yes;
+                richTextBox1.SetInnerMargins(0, 0, 5, 0);
+            }
+            else
+            {
+                richTextBox1.RightToLeft = RightToLeft.No;
+                richTextBox1.SetInnerMargins(5, 0, 0, 0);
+            }
             StatusPanel.Visible = Settings1.Default.StatusBar;
             Settings1.Default.FindNextPrev = String.Empty;
             Settings1.Default.MatchCase = false;
             Settings1.Default.Encode = "UTF-8";
             Settings1.Default.Save();
+            ScrollGraphics();
             updateFormName();
             updateTextFont();
             updateThemeColors();
@@ -214,17 +510,17 @@ namespace DarkNotepad
             return;
         }
 
-        //  This function can call other functions by their name,
-        //  This is used by Context Menu buttons and some other forms.
+                //  This function can call other functions by their name,
+                //  This is used by Context Menu buttons and some other forms.
         public void invokeMethod(object sender, EventArgs e, string methodname)
         {
-            MethodInfo mi = this.GetType().GetMethod(methodname);
+            System.Reflection.MethodInfo mi = this.GetType().GetMethod(methodname);
             mi.Invoke(this, null);
         }
 
-        //  The next functions are called by the custom Context Menu
-        //  buttons using the 'invokeMethod' function.
-        //  TestEvent() for example is used to Debug buttons.
+                //  The next functions are called by the custom Context Menu
+                //  buttons using the 'invokeMethod' function.
+                //  TestEvent() for example is used to Debug buttons.
         public void TestEvent()
         {
             Debug.WriteLine("This is a test function for invokeMethod function.");
@@ -379,6 +675,12 @@ namespace DarkNotepad
                     enc = Encoding.UTF7;
                     break;
             }
+                    //  Batch(.bat) files cannot run UTF8 encoding so the software overrides
+                    //  the encoding on .bat file to be 'ASCII' encoding.
+            if (Path.GetExtension(fileName) == ".bat")
+            {
+                enc = Encoding.ASCII;
+            }
 
             if (File.Exists(Path.Combine(fileDirectory, fileName)) &&
                 fileDirectory != String.Empty && !ForceSaveAs)
@@ -403,7 +705,7 @@ namespace DarkNotepad
                     sfd.FileName = fileName;
                 }
 
-                if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
+                if (sfd.ShowDialog() == DialogResult.Cancel) return;
 
                 
                 StreamWriter sw = new StreamWriter(File.Create(sfd.FileName), enc);
@@ -501,7 +803,8 @@ namespace DarkNotepad
         public void InternetSearchFunc()
         {
             CloseContextMenu();
-            if (richTextBox1.SelectionLength > 0)
+            if (richTextBox1.SelectionLength <= 0) return;
+            try
             {
                 String SearchEngine = "https://duckduckgo.com/?q=";
 
@@ -533,32 +836,29 @@ namespace DarkNotepad
                     }
                 }
 
-                try
+                Process.Start(new ProcessStartInfo
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        UseShellExecute = true,
-                        FileName = string.Format("{0}{1}", SearchEngine, richTextBox1.SelectedText),
-                    });
-                }
-                catch (Exception other)
-                {
-                    WarningBox WB = new WarningBox(String.Format("{0}", other.Message));
-                    WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
-                    WB.StartPosition = FormStartPosition.CenterScreen;
-                    WB.Show();
-                    WB.BringToFront();
+                    UseShellExecute = true,
+                    FileName = string.Format("{0}{1}", SearchEngine, richTextBox1.SelectedText),
+                });
+            }
+            catch (Exception ex)
+            {
+                WarningBox WB = new WarningBox(ex.Message);
+                WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
+                WB.StartPosition = FormStartPosition.CenterScreen;
+                WB.Show();
+                WB.BringToFront();
 
-                    WB = null;
-                }
+                WB = null;
             }
         }
         public void SelectAllFunc()
         {
             CloseContextMenu();
             richTextBox1.Focus();
-            richTextBox1.SelectAll();
             completeSelectionStart = -1;
+            richTextBox1.SelectAll();
             SelectionToRight = false;
         }
         public void TimeDateFunc()
@@ -591,6 +891,7 @@ namespace DarkNotepad
             Settings1.Default.Save();
             richTextBox1.WordWrap = Settings1.Default.WordWrap;
             richTextBox1.AutoWordSelection = false;
+            Notepad_Resize(null,null);
             CloseContextMenu();
             richTextBox1.Focus();
         }
@@ -694,6 +995,44 @@ namespace DarkNotepad
                 Debug.WriteLine("Error!:\n" + ex.Message);
             }
         }
+        public void RightToLeftFunc()
+        {
+            CloseContextMenu();
+            richTextBox1.Focus();
+
+            if (richTextBox1.RightToLeft == RightToLeft.Yes)
+            {
+                richTextBox1.RightToLeft = RightToLeft.No;
+                richTextBox1.SetInnerMargins(5, 0, 0, 0);
+                Settings1.Default.RightToLeft = false;
+            }
+            else
+            {
+                richTextBox1.RightToLeft = RightToLeft.Yes;
+                richTextBox1.SetInnerMargins(0, 0, 5, 0);
+                Settings1.Default.RightToLeft = true;
+            }
+            Settings1.Default.Save();
+            ScrollGraphics();
+        }
+        public void InternetHelp()
+        {
+            try
+            {
+                ProcessStartInfo proc = new ProcessStartInfo("https://github.com/000Daniel/Dark-Notepad/blob/main/Documents/Q%26A.md");
+                proc.UseShellExecute = true;
+                Process.Start(proc);
+            }
+            catch (Exception ex)
+            {
+                WarningBox WB = new WarningBox(ex.Message);
+                WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
+                WB.StartPosition = FormStartPosition.CenterScreen;
+                WB.Show();
+                WB.BringToFront();
+                WB = null;
+            }
+        }
         public void PageSetupMenu()
         {
             PageSetup PS = new PageSetup();
@@ -746,8 +1085,8 @@ namespace DarkNotepad
 
 
         /*  These are the paper sizes supported. 
-         *  THIS FEATURE MIGHT NOT WORK AT ALL! IT HAS NOT BEEN TESTED!
-         *  (Inches)
+         ***THIS FEATURE MIGHT NOT WORK AT ALL! IT HAS NOT BEEN TESTED!
+         ***(In inches)
             A3 (11.7, 16.5)
             A4 (8,3 11.7)
             A5 (5.8, 8.3)
@@ -826,7 +1165,7 @@ namespace DarkNotepad
         public void PrintFile()
         {
             CloseContextMenu();
-                //  PagePrint class is responsible for printing.
+                //  The 'PagePrint' class is responsible for printing.
             new PagePrint().Start(richTextBox1.Text, richTextBox1.Font);
         }
 
@@ -958,6 +1297,12 @@ namespace DarkNotepad
 
             cxm = null;
         }
+                //  This is a hidden button that has '&x' set as its text.
+                //  This is done so that when the user hits ALT+X the software closes.
+        private void button_hidden1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
                 //  These functions make sure to display the correct Context Menu,
                 //  depending on what button the mouse is hovering over.
@@ -1007,13 +1352,70 @@ namespace DarkNotepad
             button5_Click(sender, e);
         }
 
+        private void richTextBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            richTextBox1.Focus();
+        }
+
+                //  This creates a context menu when the user rightclicks on the RichTextBox.
+        private void richTextBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+
+            bool selectedText = false;
+            bool pasteableText = false;
+            if (richTextBox1.SelectionLength > 0)
+            {
+                selectedText = true;
+            }
+            IDataObject id = Clipboard.GetDataObject();
+            if (id.GetDataPresent(DataFormats.UnicodeText)
+                || id.GetDataPresent(DataFormats.Text)
+                || id.GetDataPresent(DataFormats.Html))
+            {
+                pasteableText = true;
+            }
+            ContextMenu cxm = new ContextMenu();
+            cxm.ShowInTaskbar = false;
+            cxm.createButton(sender, e, "Undo", "UndoFunc", richTextBox1.CanUndo);
+            cxm.createButton(sender, e, "Redo", "RedoFunc", richTextBox1.CanRedo);
+            cxm.createPanelLine(sender, e, 4);
+            cxm.createButton(sender, e, "Cut", "CutFunc", selectedText);
+            cxm.createButton(sender, e, "Copy", "CopyFunc", selectedText);
+            cxm.createButton(sender, e, "Paste", "PasteFunc", pasteableText);
+            cxm.createButton(sender, e, "Delete", "DeleteFunc", selectedText);
+            cxm.createButton(sender, e, "Select All", "SelectAllFunc");
+            cxm.createPanelLine(sender, e, 4);
+            if (richTextBox1.RightToLeft == RightToLeft.Yes)
+            {
+                cxm.createButton(sender, e, "Right to left Reading order", "RightToLeftFunc", true, true);
+            }
+            else
+            {
+                cxm.createButton(sender, e, "Right to left Reading order", "RightToLeftFunc", true, false);
+            }
+            
+            cxm.createPanelLine(sender, e, 4);
+            cxm.createButton(sender, e, "Internet Search...", "InternetSearchFunc", selectedText); //InternetHelp()
+            cxm.createButton(sender, e, "Internet Help", "InternetHelp");
+
+            cxm.Show();
+
+            int Xpos = Cursor.Position.X;
+            int Ypox = Cursor.Position.Y;
+            cxm.Location = new Point(Xpos, Ypox);
+
+            id = null;
+            cxm = null;
+        }
+
         protected override bool ShowWithoutActivation
         {
             get { return true; }
         }
 
-                //  This function handles warning boxes and other forms that need
-                //  to be shown on top of the main form.
+        //  This function handles warning boxes and other forms that need
+        //  to be shown on top of the main form.
         private void Notepad_Activated(object sender, EventArgs e)
         {
             if (Application.OpenForms.OfType<Stylize>().Any())
@@ -1049,6 +1451,7 @@ namespace DarkNotepad
                 Application.OpenForms.OfType<PageSetup>().First().BringToFront();
                 return;
             }
+            richTextBox1.Focus();
         }
 
                 //  This function handles whether to add a '*' to the title or not.
@@ -1091,10 +1494,7 @@ namespace DarkNotepad
 
         private void Notepad_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!TextModded)
-            {
-                return;
-            }
+            if (!TextModded) return;
 
             e.Cancel = true;
             if (Application.OpenForms.OfType<WarningBox>().Any()) return;
@@ -1116,7 +1516,7 @@ namespace DarkNotepad
             GC.Collect();
         }
 
-                //  These are all the current custom keybinds/shortcuts.
+                //  This method handles custom keybinds/shortcuts.
         private void richTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.V)
@@ -1193,6 +1593,7 @@ namespace DarkNotepad
                         FR.button2_Click(sender, e);
                     }
                 }
+                
             }
             if (e.Control && e.KeyCode == Keys.G)
             {
@@ -1235,16 +1636,31 @@ namespace DarkNotepad
                 e.Handled = true;
                 ResetThemes();
             }
+            if (e.KeyCode == Keys.F1)
+            {
+                InternetHelp();
+            }
         }
 
                 //  This function handles the custom 'size Grip'.
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button != MouseButtons.Left) return;
+
+            if (richTextBox1.RightToLeft == RightToLeft.Yes && !Settings1.Default.StatusBar)
             {
-                this.Size = new Size(MousePosition.X - this.Location.X + 25, MousePosition.Y - this.Location.Y + 25);
-                this.Update();
+                        //  This allows the user to resize from the bottom left.
+                int oldSize = this.Width;
+
+                this.Size = new Size(this.Width + (int)((this.Left - MousePosition.X) + 15), MousePosition.Y - this.Location.Y + 15);
+                this.Location = new Point(this.Left + (oldSize - this.Width), this.Top);
             }
+            else
+            {
+                        //  This allows the user to resize from the bottom right.
+                this.Size = new Size(MousePosition.X - this.Location.X + 15, MousePosition.Y - this.Location.Y + 15);
+            }
+            this.Update();
         }
 
                 //  This function is responsible for beginning to update the status bar
@@ -1276,7 +1692,8 @@ namespace DarkNotepad
                 //  This function determines whether the user is selecting left to right
                 //  or right to left.
                 //  this is used for the status bar (Ln, Col)
-                //  KNOWN ISSUE: sometimes when ctrl+A the Ln,Col reset to 1, 1.
+                //  KNOWN ISSUE: sometimes the shortcut CTRL+A would cause
+                //  the 'Ln,Col' a reset to 1, 1.
         private void richTextBox1_SelectionChanged(object sender, EventArgs e)
         {
             if (!Settings1.Default.StatusBar) return;
@@ -1338,6 +1755,35 @@ namespace DarkNotepad
             button5.FlatAppearance.MouseDownBackColor = SStylize.Button_Pressed;
             button5.ForeColor = SStylize.Button_Text;
             panel1.BackColor = SStylize.Background_Highlight;
+            StatusPanel.BackColor = SStylize.Status;
+            StatusInnerPanel.BackColor = SStylize.Status;
+            StatusInnerPanel2.BackColor = SStylize.Status;
+            StatusInnerPanel3.BackColor = SStylize.Status;
+            panel3.BackColor = SStylize.Status_Splitter;
+            panel5.BackColor = SStylize.Status_Splitter;
+            panel6.BackColor = SStylize.Status_Splitter;
+            statusLabel1.BackColor = SStylize.Status;
+            statusLabel1.ForeColor = SStylize.Status_Text;
+            statusLabel2.BackColor = SStylize.Status;
+            statusLabel2.ForeColor = SStylize.Status_Text;
+            statusLabel3.BackColor = SStylize.Status;
+            statusLabel3.ForeColor = SStylize.Status_Text;
+            HScrollBar.BackColor = SStylize.Scrollbar_Tint;
+            HScrollBar_Thumb.BackColor = SStylize.Scrollbar;
+            VScrollBar.BackColor = SStylize.Scrollbar_Tint;
+            VScrollBar_Thumb.BackColor = SStylize.Scrollbar;
+            VScrollBar_ArrowUp.BackColor = SStylize.Scrollbar_Icon_Background;
+            VScrollBar_ArrowUp.FlatAppearance.MouseOverBackColor = SStylize.Scrollbar_Icon_Background;
+            VScrollBar_ArrowUp.FlatAppearance.MouseDownBackColor = SStylize.Scrollbar_Icon_Tint;
+            VScrollBar_ArrowDown.BackColor = SStylize.Scrollbar_Icon_Background;
+            VScrollBar_ArrowDown.FlatAppearance.MouseOverBackColor = SStylize.Scrollbar_Icon_Background;
+            VScrollBar_ArrowDown.FlatAppearance.MouseDownBackColor = SStylize.Scrollbar_Icon_Tint;
+            HScrollBar_ArrowLeft.BackColor = SStylize.Scrollbar_Icon_Background;
+            HScrollBar_ArrowLeft.FlatAppearance.MouseOverBackColor = SStylize.Scrollbar_Icon_Background;
+            HScrollBar_ArrowLeft.FlatAppearance.MouseDownBackColor = SStylize.Scrollbar_Icon_Tint;
+            HScrollBar_ArrowRight.BackColor = SStylize.Scrollbar_Icon_Background;
+            HScrollBar_ArrowRight.FlatAppearance.MouseOverBackColor = SStylize.Scrollbar_Icon_Background;
+            HScrollBar_ArrowRight.FlatAppearance.MouseDownBackColor = SStylize.Scrollbar_Icon_Tint;
         }
     }
 }

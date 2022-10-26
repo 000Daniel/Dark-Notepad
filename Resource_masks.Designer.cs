@@ -22,14 +22,14 @@ namespace DarkNotepad {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resource1 {
+    internal class Resource_masks {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resource1() {
+        internal Resource_masks() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace DarkNotepad {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DarkNotepad.Resource1", typeof(Resource1).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DarkNotepad.Resource_masks", typeof(Resource_masks).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace DarkNotepad {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Arrow_Down {
+        internal static System.Drawing.Bitmap Arrow_Down_Mask {
             get {
-                object obj = ResourceManager.GetObject("Arrow_Down", resourceCulture);
+                object obj = ResourceManager.GetObject("Arrow_Down_Mask", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace DarkNotepad {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Arrow_Left {
+        internal static System.Drawing.Bitmap Arrow_Left_Mask {
             get {
-                object obj = ResourceManager.GetObject("Arrow_Left", resourceCulture);
+                object obj = ResourceManager.GetObject("Arrow_Left_Mask", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace DarkNotepad {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Arrow_Right {
+        internal static System.Drawing.Bitmap Arrow_Right_Mask {
             get {
-                object obj = ResourceManager.GetObject("Arrow_Right", resourceCulture);
+                object obj = ResourceManager.GetObject("Arrow_Right_Mask", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace DarkNotepad {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Arrow_Up {
+        internal static System.Drawing.Bitmap Arrow_Up_Mask {
             get {
-                object obj = ResourceManager.GetObject("Arrow_Up", resourceCulture);
+                object obj = ResourceManager.GetObject("Arrow_Up_Mask", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,39 +103,9 @@ namespace DarkNotepad {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DarkNotepad_Image {
+        internal static System.Drawing.Bitmap Check_Mask {
             get {
-                object obj = ResourceManager.GetObject("DarkNotepad_Image", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon DarkNotepadIcon {
-            get {
-                object obj = ResourceManager.GetObject("DarkNotepadIcon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon DarkNotepadSimpleIcon {
-            get {
-                object obj = ResourceManager.GetObject("DarkNotepadSimpleIcon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Grab {
-            get {
-                object obj = ResourceManager.GetObject("Grab", resourceCulture);
+                object obj = ResourceManager.GetObject("Check_Mask", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +113,9 @@ namespace DarkNotepad {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Grab2 {
+        internal static System.Drawing.Bitmap Check2_Mask {
             get {
-                object obj = ResourceManager.GetObject("Grab2", resourceCulture);
+                object obj = ResourceManager.GetObject("Check2_Mask", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +123,39 @@ namespace DarkNotepad {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Missing_Image {
+        internal static System.Drawing.Bitmap Grab_Mask {
             get {
-                object obj = ResourceManager.GetObject("Missing_Image", resourceCulture);
+                object obj = ResourceManager.GetObject("Grab_Mask", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Grab2_Empty_Mask {
+            get {
+                object obj = ResourceManager.GetObject("Grab2_Empty_Mask", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Grab2_Mask {
+            get {
+                object obj = ResourceManager.GetObject("Grab2_Mask", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Grab2_Mirrored_Mask {
+            get {
+                object obj = ResourceManager.GetObject("Grab2_Mirrored_Mask", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

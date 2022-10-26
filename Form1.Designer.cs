@@ -52,11 +52,26 @@ namespace DarkNotepad
             this.statusLabel3 = new System.Windows.Forms.Label();
             this.CollectGarbage = new System.Windows.Forms.Timer(this.components);
             this.CaretChange = new System.Windows.Forms.Timer(this.components);
+            this.HScrollBar = new System.Windows.Forms.Panel();
+            this.HScrollBar_Thumb = new System.Windows.Forms.Panel();
+            this.HScrollBarTimer = new System.Windows.Forms.Timer(this.components);
+            this.VScrollBarTimer = new System.Windows.Forms.Timer(this.components);
+            this.VScrollBar = new System.Windows.Forms.Panel();
+            this.VScrollBar_Thumb = new System.Windows.Forms.Panel();
+            this.VScrollBar_ArrowUp = new System.Windows.Forms.Button();
+            this.VScrollBar_ArrowDown = new System.Windows.Forms.Button();
+            this.HScrollBar_ArrowRight = new System.Windows.Forms.Button();
+            this.HScrollBar_ArrowLeft = new System.Windows.Forms.Button();
+            this.ScrollBars_Grip = new System.Windows.Forms.PictureBox();
+            this.button_hidden1 = new System.Windows.Forms.Button();
             this.StatusPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.StatusInnerPanel.SuspendLayout();
             this.StatusInnerPanel2.SuspendLayout();
             this.StatusInnerPanel3.SuspendLayout();
+            this.HScrollBar.SuspendLayout();
+            this.VScrollBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScrollBars_Grip)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -86,7 +101,7 @@ namespace DarkNotepad
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(40, 21);
             this.button1.TabIndex = 1;
-            this.button1.Text = "File";
+            this.button1.Text = "&File";
             this.button1.UseCompatibleTextRendering = true;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -104,7 +119,7 @@ namespace DarkNotepad
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(40, 21);
             this.button2.TabIndex = 2;
-            this.button2.Text = "Edit";
+            this.button2.Text = "&Edit";
             this.button2.UseCompatibleTextRendering = true;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -122,7 +137,7 @@ namespace DarkNotepad
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(60, 21);
             this.button3.TabIndex = 3;
-            this.button3.Text = "Format";
+            this.button3.Text = "F&ormat";
             this.button3.UseCompatibleTextRendering = true;
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -140,7 +155,7 @@ namespace DarkNotepad
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(45, 21);
             this.button4.TabIndex = 4;
-            this.button4.Text = "View";
+            this.button4.Text = "&View";
             this.button4.UseCompatibleTextRendering = true;
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -158,7 +173,7 @@ namespace DarkNotepad
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(40, 21);
             this.button5.TabIndex = 5;
-            this.button5.Text = "Help";
+            this.button5.Text = "&Help";
             this.button5.UseCompatibleTextRendering = true;
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
@@ -183,8 +198,10 @@ namespace DarkNotepad
             this.richTextBox1.WordWrap = false;
             this.richTextBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Notepad_DragDrop);
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
+            this.richTextBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseClick);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBox1_KeyDown);
+            this.richTextBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseUp);
             // 
             // StatusPanel
             // 
@@ -203,7 +220,7 @@ namespace DarkNotepad
             // pictureBox1
             // 
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Image = global::DarkNotepad.Resource1.Grab;
             this.pictureBox1.Location = new System.Drawing.Point(970, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(14, 20);
@@ -309,12 +326,164 @@ namespace DarkNotepad
             this.CaretChange.Interval = 10;
             this.CaretChange.Tick += new System.EventHandler(this.CaretChange_Tick);
             // 
+            // HScrollBar
+            // 
+            this.HScrollBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.HScrollBar.Controls.Add(this.HScrollBar_Thumb);
+            this.HScrollBar.Enabled = false;
+            this.HScrollBar.Location = new System.Drawing.Point(65, 450);
+            this.HScrollBar.Name = "HScrollBar";
+            this.HScrollBar.Size = new System.Drawing.Size(649, 12);
+            this.HScrollBar.TabIndex = 8;
+            // 
+            // HScrollBar_Thumb
+            // 
+            this.HScrollBar_Thumb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.HScrollBar_Thumb.Location = new System.Drawing.Point(70, 0);
+            this.HScrollBar_Thumb.Name = "HScrollBar_Thumb";
+            this.HScrollBar_Thumb.Size = new System.Drawing.Size(529, 12);
+            this.HScrollBar_Thumb.TabIndex = 9;
+            // 
+            // HScrollBarTimer
+            // 
+            this.HScrollBarTimer.Enabled = true;
+            this.HScrollBarTimer.Interval = 10;
+            this.HScrollBarTimer.Tick += new System.EventHandler(this.HScrollBarTimer_Tick);
+            // 
+            // VScrollBarTimer
+            // 
+            this.VScrollBarTimer.Enabled = true;
+            this.VScrollBarTimer.Interval = 10;
+            this.VScrollBarTimer.Tick += new System.EventHandler(this.VScrollBarTimer_Tick);
+            // 
+            // VScrollBar
+            // 
+            this.VScrollBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.VScrollBar.Controls.Add(this.VScrollBar_Thumb);
+            this.VScrollBar.Enabled = false;
+            this.VScrollBar.Location = new System.Drawing.Point(804, 45);
+            this.VScrollBar.Name = "VScrollBar";
+            this.VScrollBar.Size = new System.Drawing.Size(12, 360);
+            this.VScrollBar.TabIndex = 10;
+            // 
+            // VScrollBar_Thumb
+            // 
+            this.VScrollBar_Thumb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.VScrollBar_Thumb.Location = new System.Drawing.Point(0, 36);
+            this.VScrollBar_Thumb.Name = "VScrollBar_Thumb";
+            this.VScrollBar_Thumb.Size = new System.Drawing.Size(12, 278);
+            this.VScrollBar_Thumb.TabIndex = 9;
+            // 
+            // VScrollBar_ArrowUp
+            // 
+            this.VScrollBar_ArrowUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.VScrollBar_ArrowUp.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.VScrollBar_ArrowUp.FlatAppearance.BorderSize = 0;
+            this.VScrollBar_ArrowUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.VScrollBar_ArrowUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.VScrollBar_ArrowUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VScrollBar_ArrowUp.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.VScrollBar_ArrowUp.Image = global::DarkNotepad.Resource1.Arrow_Up;
+            this.VScrollBar_ArrowUp.Location = new System.Drawing.Point(779, 25);
+            this.VScrollBar_ArrowUp.Name = "VScrollBar_ArrowUp";
+            this.VScrollBar_ArrowUp.Size = new System.Drawing.Size(17, 17);
+            this.VScrollBar_ArrowUp.TabIndex = 11;
+            this.VScrollBar_ArrowUp.UseCompatibleTextRendering = true;
+            this.VScrollBar_ArrowUp.UseVisualStyleBackColor = false;
+            // 
+            // VScrollBar_ArrowDown
+            // 
+            this.VScrollBar_ArrowDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.VScrollBar_ArrowDown.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.VScrollBar_ArrowDown.FlatAppearance.BorderSize = 0;
+            this.VScrollBar_ArrowDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.VScrollBar_ArrowDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.VScrollBar_ArrowDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VScrollBar_ArrowDown.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.VScrollBar_ArrowDown.Image = ((System.Drawing.Image)(resources.GetObject("VScrollBar_ArrowDown.Image")));
+            this.VScrollBar_ArrowDown.Location = new System.Drawing.Point(779, 60);
+            this.VScrollBar_ArrowDown.Name = "VScrollBar_ArrowDown";
+            this.VScrollBar_ArrowDown.Size = new System.Drawing.Size(17, 17);
+            this.VScrollBar_ArrowDown.TabIndex = 12;
+            this.VScrollBar_ArrowDown.UseCompatibleTextRendering = true;
+            this.VScrollBar_ArrowDown.UseVisualStyleBackColor = false;
+            // 
+            // HScrollBar_ArrowRight
+            // 
+            this.HScrollBar_ArrowRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.HScrollBar_ArrowRight.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.HScrollBar_ArrowRight.FlatAppearance.BorderSize = 0;
+            this.HScrollBar_ArrowRight.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.HScrollBar_ArrowRight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.HScrollBar_ArrowRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HScrollBar_ArrowRight.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.HScrollBar_ArrowRight.Image = ((System.Drawing.Image)(resources.GetObject("HScrollBar_ArrowRight.Image")));
+            this.HScrollBar_ArrowRight.Location = new System.Drawing.Point(50, 426);
+            this.HScrollBar_ArrowRight.Name = "HScrollBar_ArrowRight";
+            this.HScrollBar_ArrowRight.Size = new System.Drawing.Size(17, 17);
+            this.HScrollBar_ArrowRight.TabIndex = 14;
+            this.HScrollBar_ArrowRight.UseCompatibleTextRendering = true;
+            this.HScrollBar_ArrowRight.UseVisualStyleBackColor = false;
+            // 
+            // HScrollBar_ArrowLeft
+            // 
+            this.HScrollBar_ArrowLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.HScrollBar_ArrowLeft.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.HScrollBar_ArrowLeft.FlatAppearance.BorderSize = 0;
+            this.HScrollBar_ArrowLeft.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.HScrollBar_ArrowLeft.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.HScrollBar_ArrowLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HScrollBar_ArrowLeft.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.HScrollBar_ArrowLeft.Image = ((System.Drawing.Image)(resources.GetObject("HScrollBar_ArrowLeft.Image")));
+            this.HScrollBar_ArrowLeft.Location = new System.Drawing.Point(11, 426);
+            this.HScrollBar_ArrowLeft.Name = "HScrollBar_ArrowLeft";
+            this.HScrollBar_ArrowLeft.Size = new System.Drawing.Size(17, 17);
+            this.HScrollBar_ArrowLeft.TabIndex = 13;
+            this.HScrollBar_ArrowLeft.UseCompatibleTextRendering = true;
+            this.HScrollBar_ArrowLeft.UseVisualStyleBackColor = false;
+            // 
+            // ScrollBars_Grip
+            // 
+            this.ScrollBars_Grip.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.ScrollBars_Grip.Image = global::DarkNotepad.Resource1.Grab2;
+            this.ScrollBars_Grip.Location = new System.Drawing.Point(768, 412);
+            this.ScrollBars_Grip.Name = "ScrollBars_Grip";
+            this.ScrollBars_Grip.Size = new System.Drawing.Size(17, 17);
+            this.ScrollBars_Grip.TabIndex = 15;
+            this.ScrollBars_Grip.TabStop = false;
+            this.ScrollBars_Grip.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            // 
+            // button_hidden1
+            // 
+            this.button_hidden1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.button_hidden1.FlatAppearance.BorderSize = 0;
+            this.button_hidden1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
+            this.button_hidden1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
+            this.button_hidden1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_hidden1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button_hidden1.Location = new System.Drawing.Point(-64, -64);
+            this.button_hidden1.Name = "button_hidden1";
+            this.button_hidden1.Size = new System.Drawing.Size(40, 21);
+            this.button_hidden1.TabIndex = 16;
+            this.button_hidden1.Text = "&x";
+            this.button_hidden1.UseCompatibleTextRendering = true;
+            this.button_hidden1.UseVisualStyleBackColor = true;
+            this.button_hidden1.Click += new System.EventHandler(this.button_hidden1_Click);
+            // 
             // Notepad
             // 
             this.AllowDrop = true;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(984, 541);
+            this.Controls.Add(this.button_hidden1);
+            this.Controls.Add(this.HScrollBar_ArrowRight);
+            this.Controls.Add(this.HScrollBar_ArrowLeft);
+            this.Controls.Add(this.VScrollBar_ArrowDown);
+            this.Controls.Add(this.VScrollBar_ArrowUp);
+            this.Controls.Add(this.ScrollBars_Grip);
+            this.Controls.Add(this.VScrollBar);
+            this.Controls.Add(this.HScrollBar);
             this.Controls.Add(this.StatusPanel);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button5);
@@ -339,6 +508,9 @@ namespace DarkNotepad
             this.StatusInnerPanel.ResumeLayout(false);
             this.StatusInnerPanel2.ResumeLayout(false);
             this.StatusInnerPanel3.ResumeLayout(false);
+            this.HScrollBar.ResumeLayout(false);
+            this.VScrollBar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ScrollBars_Grip)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -365,6 +537,18 @@ namespace DarkNotepad
         private System.Windows.Forms.Panel StatusInnerPanel3;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label statusLabel3;
+        private System.Windows.Forms.Panel HScrollBar;
+        private System.Windows.Forms.Panel HScrollBar_Thumb;
+        private System.Windows.Forms.Timer HScrollBarTimer;
+        private System.Windows.Forms.Timer VScrollBarTimer;
+        private System.Windows.Forms.Panel VScrollBar;
+        private System.Windows.Forms.Panel VScrollBar_Thumb;
+        private System.Windows.Forms.PictureBox ScrollBars_Grip;
+        public System.Windows.Forms.Button VScrollBar_ArrowUp;
+        public System.Windows.Forms.Button VScrollBar_ArrowDown;
+        public System.Windows.Forms.Button HScrollBar_ArrowRight;
+        public System.Windows.Forms.Button HScrollBar_ArrowLeft;
+        private System.Windows.Forms.Button button_hidden1;
     }
 }
 

@@ -29,12 +29,11 @@ namespace DarkNotepad
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContextMenu));
             this.BorderPanel1 = new System.Windows.Forms.Panel();
             this.BorderPanel2 = new System.Windows.Forms.Panel();
             this.BorderPanel3 = new System.Windows.Forms.Panel();
             this.BorderPanel4 = new System.Windows.Forms.Panel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // BorderPanel1
@@ -69,11 +68,6 @@ namespace DarkNotepad
             this.BorderPanel4.Size = new System.Drawing.Size(1, 538);
             this.BorderPanel4.TabIndex = 2;
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // ContextMenu
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -86,10 +80,14 @@ namespace DarkNotepad
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.SystemColors.Control;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ContextMenu";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "ContextMenu";
             this.Deactivate += new System.EventHandler(this.ContextMenu_Deactivate);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ContextMenu_KeyDown);
             this.ResumeLayout(false);
 
         }
@@ -100,6 +98,5 @@ namespace DarkNotepad
         private System.Windows.Forms.Panel BorderPanel2;
         private System.Windows.Forms.Panel BorderPanel3;
         private System.Windows.Forms.Panel BorderPanel4;
-        private System.Windows.Forms.Timer timer1;
     }
 }

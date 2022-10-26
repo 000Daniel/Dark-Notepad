@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Windows.Forms;
 
 namespace DarkNotepad
@@ -14,19 +15,12 @@ namespace DarkNotepad
             //  always have the same theme.
     public partial class Stylize : Form
     {
-        private Notepad dnp;
+        public Notepad dnp = Application.OpenForms.OfType<Notepad>().First();
         private SettingsStylize SStyle = SettingsStylize.Default;
 
         public Stylize()
         {
             InitializeComponent();
-        }
-
-        private void updateDNT(object sender, EventArgs e)
-        {
-            if (dnp != null) return;
-            if (Application.OpenForms.OfType<Notepad>().Any())
-                dnp = Application.OpenForms.OfType<Notepad>().First();
         }
 
                 //  This loads the current settings to a button (to preview the color).
@@ -51,11 +45,20 @@ namespace DarkNotepad
             SetColor(button16, SStyle.TextBox);
             SetColor(button15, SStyle.TextBox_Text);
             SetColor(button17, SStyle.Text_Error);
+            SetColor(button18, SStyle.Scrollbar);
+            SetColor(button19, SStyle.Scrollbar_Icon_Background);
+            SetColor(button20, SStyle.Scrollbar_Tint);
+            SetColor(button21, SStyle.Scrollbar_Icon);
+            SetColor(button23, SStyle.Scrollbar_Icon_Tint);
+            SetColor(button24, SStyle.Status);
+            SetColor(button25, SStyle.Status_Text);
+            SetColor(button22, SStyle.Status_Splitter);
 
             UpdatePreviewWindow();
         }
         private void SetColor(Button btn, Color color)
         {
+            if (btn == null) return;
             btn.BackColor = color;
             btn.FlatAppearance.MouseDownBackColor = color;
             btn.FlatAppearance.MouseOverBackColor = color;
@@ -68,6 +71,9 @@ namespace DarkNotepad
             panel2.BackColor = button1.BackColor;
             Preview_PanelHighlight.BackColor = button2.BackColor;
             Preview_PanelHighlight2.BackColor = button2.BackColor;
+            Preview_PanelHighlight3.BackColor = button2.BackColor;
+            Preview_PanelHighlight4.BackColor = button2.BackColor;
+            Preview_StatusSplitter.BackColor = button22.BackColor;
 
             Preview_Label.ForeColor = button3.BackColor;
             Preview_Label.BackColor = button1.BackColor;
@@ -75,6 +81,17 @@ namespace DarkNotepad
             Preview_LinkLabel.BackColor = button1.BackColor;
             Preview_LinkLabel.ActiveLinkColor = button5.BackColor;
             Preview_LinkLabel.VisitedLinkColor = button4.BackColor;
+
+            Preview_RichTextBox.ForeColor = button3.BackColor;
+            Preview_RichTextBox.BackColor = button1.BackColor;
+            Preview_Scrollbar.BackColor = button20.BackColor;
+            Preview_Scrollbar_Thumb.BackColor = button18.BackColor;
+            Preview_IconButton.ForeColor = button21.BackColor;
+            Preview_IconButton.BackColor = button19.BackColor;
+            Preview_IconButton.FlatAppearance.MouseOverBackColor = button19.BackColor;
+            Preview_IconButton.FlatAppearance.MouseDownBackColor = button23.BackColor;
+            Preview_Label3.ForeColor = button3.BackColor;
+            Preview_Label3.BackColor = button1.BackColor;
 
             Preview_Button.BackColor = button6.BackColor;
             Preview_Button.FlatAppearance.MouseOverBackColor = button7.BackColor;
@@ -88,17 +105,22 @@ namespace DarkNotepad
             Preview_TextBox.BackColor = button16.BackColor;
             Preview_TextBox.ForeColor = button15.BackColor;
             Preview_ErrorLabel.ForeColor = button17.BackColor;
+
+            Preview_Label2.ForeColor = button25.BackColor;
+            Preview_Label2.BackColor = button24.BackColor;
+            Preview_StatusPanel.BackColor = button24.BackColor;
         }
 
         private void exitbutton_Click(object sender, EventArgs e)
         {
-            this.Dispose();
-            updateDNT(sender, e);
-
+            this.Close();
+        }
+        private void Stylize_FormClosing(object sender, FormClosingEventArgs e)
+        {
             if (Application.OpenForms.OfType<ColorPicker>().Any())
                 Application.OpenForms.OfType<ColorPicker>().First().Close();
-
-            dnp.Focus();
+            this.Dispose();
+            dnp.richTextBox1.Focus();
         }
 
                 //  This saves the new theme settings to 'SettingsStylize.settings'.
@@ -122,11 +144,19 @@ namespace DarkNotepad
             SStyle.TextBox = button16.BackColor;
             SStyle.TextBox_Text = button15.BackColor;
             SStyle.Text_Error = button17.BackColor;
+            SStyle.Scrollbar = button18.BackColor;
+            SStyle.Scrollbar_Icon_Background = button19.BackColor;
+            SStyle.Scrollbar_Tint = button20.BackColor;
+            SStyle.Scrollbar_Icon = button21.BackColor;
+            SStyle.Scrollbar_Icon_Tint = button23.BackColor;
+            SStyle.Status_Splitter = button22.BackColor;
+            SStyle.Status = button24.BackColor;
+            SStyle.Status_Text = button25.BackColor;
 
             SStyle.Save();
 
-            updateDNT(sender, e);
             dnp.updateThemeColors();
+            dnp.CreateCustomIcons();
             exitbutton_Click(null, null);
         }
 
@@ -144,7 +174,7 @@ namespace DarkNotepad
         {
             SStyle.Reset();
             Stylize_Load(null, null);
-            updateDNT(null,null);
+            dnp.CreateCustomIcons();
             dnp.updateThemeColors();
         }
 
@@ -252,26 +282,65 @@ namespace DarkNotepad
         {
             open_ColorPicker(button17);
         }
+        private void button18_Click(object sender, EventArgs e)
+        {
+            open_ColorPicker(button18);
+        }
+        private void button19_Click(object sender, EventArgs e)
+        {
+            open_ColorPicker(button19);
+        }
+        private void button20_Click(object sender, EventArgs e)
+        {
+            open_ColorPicker(button20);
+        }
+        private void button21_Click(object sender, EventArgs e)
+        {
+            open_ColorPicker(button21);
+        }
+        private void button22_Click(object sender, EventArgs e)
+        {
+            open_ColorPicker(button22);
+        }
+        private void button23_Click(object sender, EventArgs e)
+        {
+            open_ColorPicker(button23);
+        }
+        private void button24_Click(object sender, EventArgs e)
+        {
+            open_ColorPicker(button24);
+        }
+        private void button25_Click(object sender, EventArgs e)
+        {
+            open_ColorPicker(button25);
+        }
 
                 //  This function imports the stylizing settings from a file.
         private void Import_Button_Click(object sender, EventArgs e)
         {
+                    //  'ImportThemeDir' exists so that if the user imports a theme the
+                    //  default directory would be the themes or executable folders.
+            string def_path = Settings1.Default.ImportThemeDir;
+            if (def_path == string.Empty)
+            {
+                string temp_path = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "themes");
+                if (Directory.Exists(temp_path))
+                {
+                    def_path = temp_path;
+                } else
+                {
+                    def_path = Path.GetDirectoryName(Application.ExecutablePath);
+                }
+            }
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Theme Config |*.config|All Files |*.*";
             ofd.FilterIndex = 1;
             ofd.Title = "Import Theme";
+            ofd.InitialDirectory = def_path;
             if (ofd.ShowDialog() == DialogResult.Cancel) return;
-            if (File.ReadLines(ofd.FileName).Count() < 17)
-            {
-                WarningBox WB = new WarningBox("Config file could not be loaded!\nFile may be corrupt");
-                WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
-                WB.StartPosition = FormStartPosition.CenterScreen;
-                WB.Show();
-                WB.BringToFront();
 
-                WB = null;
-                return;
-            }
+            Settings1.Default.ImportThemeDir = Path.GetDirectoryName(ofd.FileName);
+            bool foundVersion = false;
 
             try
             {
@@ -280,6 +349,7 @@ namespace DarkNotepad
                         //  'lineColor' - with what color.
                 foreach (string line in File.ReadLines(ofd.FileName))
                 {
+                    if (line == String.Empty) continue;
                     string lineStyle = line.Substring(0, line.IndexOf("/"));
                     string lineColor = line.Substring(line.IndexOf("/") + 1);
                     Button btn = null;
@@ -287,6 +357,21 @@ namespace DarkNotepad
 
                     switch (lineStyle)
                     {
+                        case "Version":
+                            foundVersion = true;
+
+                            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                            string ver_str = String.Format("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
+                            if (lineColor.Equals(ver_str)) break;
+
+                            WarningBox WB = new WarningBox("Theme is from a different version of Dark Notepad!\nTheme may be incompatible.");
+                            WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
+                            WB.StartPosition = FormStartPosition.CenterScreen;
+                            WB.Show();
+                            WB.BringToFront();
+
+                            WB = null;
+                            break;
                         case "Background":
                             clr = ColorTranslator.FromHtml(lineColor);
                             btn = button1;
@@ -355,15 +440,46 @@ namespace DarkNotepad
                             clr = ColorTranslator.FromHtml(lineColor);
                             btn = button17;
                             break;
+                        case "Scrollbar":
+                            clr = ColorTranslator.FromHtml(lineColor);
+                            btn = button18;
+                            break;
+                        case "Scrollbar_Tint":
+                            clr = ColorTranslator.FromHtml(lineColor);
+                            btn = button20;
+                            break;
+                        case "Scrollbar_Icon":
+                            clr = ColorTranslator.FromHtml(lineColor);
+                            btn = button21;
+                            break;
+                        case "Scrollbar_Icon_Background":
+                            clr = ColorTranslator.FromHtml(lineColor);
+                            btn = button19;
+                            break;
+                        case "Scrollbar_Icon_Tint":
+                            clr = ColorTranslator.FromHtml(lineColor);
+                            btn = button23;
+                            break;
+                        case "Status":
+                            clr = ColorTranslator.FromHtml(lineColor);
+                            btn = button24;
+                            break;
+                        case "Status_Text":
+                            clr = ColorTranslator.FromHtml(lineColor);
+                            btn = button25;
+                            break;
+                        case "Status_Splitter":
+                            clr = ColorTranslator.FromHtml(lineColor);
+                            btn = button22;
+                            break;
                     }
-
                     SetColor(btn, clr);
                 }
                 UpdatePreviewWindow();
             }
             catch (Exception ex)
             {
-                WarningBox WB = new WarningBox(String.Format("{0}", ex.Message));
+                WarningBox WB = new WarningBox(ex.Message);
                 WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
                 WB.StartPosition = FormStartPosition.CenterScreen;
                 WB.Show();
@@ -372,6 +488,16 @@ namespace DarkNotepad
                 WB = null;
                 Stylize_Load(null,null);
             }
+            if (!foundVersion)
+            {
+                WarningBox WB = new WarningBox("Couldn't find theme version!\nTheme may be incompatible.");
+                WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
+                WB.StartPosition = FormStartPosition.CenterScreen;
+                WB.Show();
+                WB.BringToFront();
+
+                WB = null;
+            }
         }
 
                 //  This exports the currently saved theme into a file.
@@ -379,14 +505,34 @@ namespace DarkNotepad
         {
             try
             {
+                        //  'ExportThemeDir' exists so that if the user exports a theme the
+                        //  default directory would be the themes or executable folders.
+                string def_path = Settings1.Default.ExportThemeDir;
+                if (def_path == string.Empty)
+                {
+                    string temp_path = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "themes");
+                    if (Directory.Exists(temp_path))
+                    {
+                        def_path = temp_path;
+                    }
+                    else
+                    {
+                        def_path = Path.GetDirectoryName(Application.ExecutablePath);
+                    }
+                }
                 SaveFileDialog sfd = new SaveFileDialog();
                 sfd.Filter = "Theme Config |*.config|All Files |*.*";
                 sfd.FilterIndex = 1;
                 sfd.Title = "Export Theme";
+                sfd.InitialDirectory = def_path;
 
                 if (sfd.ShowDialog() == DialogResult.Cancel) return;
+                Settings1.Default.ExportThemeDir = Path.GetDirectoryName(sfd.FileName);
 
+                var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                string ver_str = String.Format("{0}.{1}.{2}",version.Major,version.Minor,version.Build);
                 string[] themeConfig = {
+                "Version/" + ver_str,
                 "Background/" + colorFormat(button1),
                 "Background_Highlight/" + colorFormat(button2),
                 "Text/" + colorFormat(button3),
@@ -403,7 +549,15 @@ namespace DarkNotepad
                 "Button_Border/" + colorFormat(button14),
                 "TextBox_Text/" + colorFormat(button15),
                 "TextBox/" + colorFormat(button16),
-                "Text_Error/" + colorFormat(button17)};
+                "Text_Error/" + colorFormat(button17),
+                "Scrollbar/" + colorFormat(button18),
+                "Scrollbar_Tint/" + colorFormat(button20),
+                "Scrollbar_Icon/" + colorFormat(button21),
+                "Scrollbar_Icon_Background/" + colorFormat(button19),
+                "Scrollbar_Icon_Tint/" + colorFormat(button23),
+                "Status/" + colorFormat(button24),
+                "Status_Text/" + colorFormat(button25),
+                "Status_Splitter/" + colorFormat(button22)};
 
                 StreamWriter sw = new StreamWriter(File.Create(sfd.FileName));
                 foreach (string str in themeConfig)
@@ -416,7 +570,7 @@ namespace DarkNotepad
             }
             catch (Exception ex)
             {
-                WarningBox WB = new WarningBox(String.Format("{0}", ex.Message));
+                WarningBox WB = new WarningBox(ex.Message);
                 WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
                 WB.StartPosition = FormStartPosition.CenterScreen;
                 WB.Show();
@@ -425,7 +579,6 @@ namespace DarkNotepad
                 WB = null;
             }
         }
-
                 //  This function returns a string of the RGB values formatted like this: "x,x,x".
         private string colorFormat(Button btn)
         {

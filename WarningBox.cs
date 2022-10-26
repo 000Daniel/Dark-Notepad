@@ -13,7 +13,7 @@ namespace DarkNotepad
         private bool FirstButton = true;
         public bool finishedLoading = false;
 
-        private Notepad dnp = new Notepad(String.Empty);
+        private Notepad dnp = Application.OpenForms.OfType<Notepad>().First();
         private SettingsStylize SStylize = SettingsStylize.Default;
 
         public WarningBox(string comment)
@@ -24,14 +24,11 @@ namespace DarkNotepad
             label1.Text = comment;
             comment = null;
 
-            if (Application.OpenForms.OfType<Notepad>().Any())
-                dnp = Application.OpenForms.OfType<Notepad>().First();
-
             finishedLoading = true;
         }
 
                 //  This function allows the Developer to add however many buttons needed.
-                //  These buttons call for a method by name on 'Form1'
+                //  These buttons call for a method by name on 'Form1'.
         public void createButton(object sender, EventArgs e, string btnText, string methodName, int ButtonWidth)
         {
             if (FirstButton)
@@ -46,17 +43,18 @@ namespace DarkNotepad
 
             Button btn = new Button();
             btn.BackColor = SStylize.Button;
+            btn.ForeColor = SStylize.Button_Text;
             btn.FlatAppearance.BorderColor = SStylize.Button_Border;
             btn.FlatAppearance.MouseDownBackColor = SStylize.Button_Pressed;
             btn.FlatAppearance.MouseOverBackColor = SStylize.Button_Highlight;
-            btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btn.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btn.Location = new System.Drawing.Point(locationX, 83);
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btn.Location = new Point(locationX, 83);
             btn.Name = btnText;
-            btn.Size = new System.Drawing.Size(ButtonWidth, ButtonHeight);
+            btn.Size = new Size(ButtonWidth, ButtonHeight);
             btn.TabIndex = 1;
             btn.Text = btnText;
-            btn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            btn.TextAlign = ContentAlignment.MiddleCenter;
             btn.UseCompatibleTextRendering = true;
             btn.UseVisualStyleBackColor = true;
             btn.Click += (sender2, e2) => dnp.invokeMethod(sender, e, methodName);
@@ -68,15 +66,6 @@ namespace DarkNotepad
             btn = null;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (Application.OpenForms.OfType<Notepad>().Any())
-            {
-                dnp = Application.OpenForms.OfType<Notepad>().First();
-                timer1.Enabled = false;
-                timer1.Dispose();
-            }
-        }
         public void updateThemeColors()
         {
             BackColor = SStylize.Background;
@@ -85,7 +74,7 @@ namespace DarkNotepad
             label1.ForeColor = SStylize.Text;
             panel2.BackColor = SStylize.Background_Highlight;
 
-                    //  This is a custom color that blends between 'Background' and
+                    //  This results in a color thats a blend between 'Background' and
                     //  'Background_Highlight'.
             int Rvalue = (SStylize.Background.R + SStylize.Background_Highlight.R) / 2;
             int Gvalue = (SStylize.Background.G + SStylize.Background_Highlight.G) / 2;

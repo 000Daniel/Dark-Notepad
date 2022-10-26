@@ -226,5 +226,101 @@ namespace DarkNotepad {
                 this["Text_Error"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40, 40, 40")]
+        public global::System.Drawing.Color Scrollbar {
+            get {
+                return ((global::System.Drawing.Color)(this["Scrollbar"]));
+            }
+            set {
+                this["Scrollbar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40, 40, 40")]
+        public global::System.Drawing.Color Scrollbar_Icon_Background {
+            get {
+                return ((global::System.Drawing.Color)(this["Scrollbar_Icon_Background"]));
+            }
+            set {
+                this["Scrollbar_Icon_Background"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25, 25, 25")]
+        public global::System.Drawing.Color Scrollbar_Tint {
+            get {
+                return ((global::System.Drawing.Color)(this["Scrollbar_Tint"]));
+            }
+            set {
+                this["Scrollbar_Tint"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("178, 178, 178")]
+        public global::System.Drawing.Color Scrollbar_Icon {
+            get {
+                return ((global::System.Drawing.Color)(this["Scrollbar_Icon"]));
+            }
+            set {
+                this["Scrollbar_Icon"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60, 60, 60")]
+        public global::System.Drawing.Color Status_Splitter {
+            get {
+                return ((global::System.Drawing.Color)(this["Status_Splitter"]));
+            }
+            set {
+                this["Status_Splitter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25, 25, 25")]
+        public global::System.Drawing.Color Scrollbar_Icon_Tint {
+            get {
+                return ((global::System.Drawing.Color)(this["Scrollbar_Icon_Tint"]));
+            }
+            set {
+                this["Scrollbar_Icon_Tint"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40, 40, 40")]
+        public global::System.Drawing.Color Status {
+            get {
+                return ((global::System.Drawing.Color)(this["Status"]));
+            }
+            set {
+                this["Status"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("240, 240, 240")]
+        public global::System.Drawing.Color Status_Text {
+            get {
+                return ((global::System.Drawing.Color)(this["Status_Text"]));
+            }
+            set {
+                this["Status_Text"] = value;
+            }
+        }
     }
 }

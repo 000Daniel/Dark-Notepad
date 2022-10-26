@@ -118,34 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="DarkNotepad_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\DarkNotepad_Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Arrow_Down_Mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\masks\Arrow_Down_Mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DarkNotepadIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\DarkNotepadIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Arrow_Left_Mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\masks\Arrow_Left_Mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Grab" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\Grab.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Arrow_Right_Mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\masks\Arrow_Right_Mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Arrow_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\Arrow_Down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Arrow_Up_Mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\masks\Arrow_Up_Mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Grab2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\Grab2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Check2_Mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\masks\Check2_Mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Arrow_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\Arrow_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Check_Mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\masks\Check_Mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Arrow_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\Arrow_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Grab2_Empty_Mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\masks\Grab2_Empty_Mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Arrow_Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\Arrow_Up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Grab2_Mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\masks\Grab2_Mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DarkNotepadSimpleIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\DarkNotepadSimpleIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Grab2_Mirrored_Mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\masks\Grab2_Mirrored_Mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Missing_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\Missing_Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Grab_Mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\masks\Grab_Mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

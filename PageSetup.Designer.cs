@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PageSetup));
             this.button2 = new System.Windows.Forms.Button();
             this.backgroundPanel1 = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
@@ -211,8 +212,6 @@
             this.textBox3.TabIndex = 8;
             this.textBox3.Text = "25";
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
-            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
-            this.textBox3.Leave += new System.EventHandler(this.textBox3_Leave);
             // 
             // label6
             // 
@@ -233,8 +232,6 @@
             this.textBox4.TabIndex = 6;
             this.textBox4.Text = "25";
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
-            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_KeyPress);
-            this.textBox4.Leave += new System.EventHandler(this.textBox4_Leave);
             // 
             // label7
             // 
@@ -255,8 +252,6 @@
             this.textBox2.TabIndex = 4;
             this.textBox2.Text = "20";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
-            this.textBox2.Leave += new System.EventHandler(this.textBox2_Leave);
             // 
             // label5
             // 
@@ -277,8 +272,6 @@
             this.textBox1.TabIndex = 2;
             this.textBox1.Text = "20";
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
-            this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
             // 
             // label4
             // 
@@ -414,9 +407,12 @@
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.SystemColors.Control;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "PageSetup";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "Page Setup";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PageSetup_FormClosing);
             this.Load += new System.EventHandler(this.PageSetup_Load);

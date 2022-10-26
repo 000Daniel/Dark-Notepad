@@ -53,5 +53,29 @@
     <Setting Name="Text_Error" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Red</Value>
     </Setting>
+    <Setting Name="Scrollbar" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">40, 40, 40</Value>
+    </Setting>
+    <Setting Name="Scrollbar_Icon_Background" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">40, 40, 40</Value>
+    </Setting>
+    <Setting Name="Scrollbar_Tint" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">25, 25, 25</Value>
+    </Setting>
+    <Setting Name="Scrollbar_Icon" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">178, 178, 178</Value>
+    </Setting>
+    <Setting Name="Status_Splitter" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">60, 60, 60</Value>
+    </Setting>
+    <Setting Name="Scrollbar_Icon_Tint" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">25, 25, 25</Value>
+    </Setting>
+    <Setting Name="Status" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">40, 40, 40</Value>
+    </Setting>
+    <Setting Name="Status_Text" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">240, 240, 240</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

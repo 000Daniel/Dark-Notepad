@@ -7,7 +7,7 @@ namespace DarkNotepad
     public partial class FindReplace : Form
     {
         public bool matchCase = false;
-        private Notepad dnp;
+        private Notepad dnp = Application.OpenForms.OfType<Notepad>().First();
         private int index;
         private bool overrideIndex = true;
         private string replaceWith = string.Empty;
@@ -21,22 +21,11 @@ namespace DarkNotepad
 
             if (matchCase)
             {
-                pictureBox1.Image = Resource1.DarkCheck2;
+                pictureBox1.Image = dnp.Check2;
             }
             else
             {
-                pictureBox1.Image = Resource1.DarkCheck;
-            }
-        }
-
-        private void updateDNT(object sender, EventArgs e)
-        {
-            if (dnp == null)
-            {
-                if (Application.OpenForms.OfType<Notepad>().Any())
-                {
-                    dnp = Application.OpenForms.OfType<Notepad>().First();
-                }
+                pictureBox1.Image = dnp.Check;
             }
         }
 
@@ -49,23 +38,16 @@ namespace DarkNotepad
 
             if (matchCase)
             {
-                pictureBox1.Image = Resource1.DarkCheck2;
-                return;
+                pictureBox1.Image = dnp.Check2;
             }
-            pictureBox1.Image = Resource1.DarkCheck;
-
-            return;
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-            GC.Collect();
+            else
+            {
+                pictureBox1.Image = dnp.Check;
+            }
         }
 
         private void FindReplace_Load(object sender, EventArgs e)
         {
-            updateDNT(sender, e);
             updateThemeColors();
         }
 
@@ -78,7 +60,6 @@ namespace DarkNotepad
         {
             if (textBox1.Text == String.Empty) return;
 
-            updateDNT(sender, e);
             string richTextAnalyze = dnp.richTextBox1.Text;
             string find = textBox1.Text;
             if (!matchCase)
@@ -109,16 +90,13 @@ namespace DarkNotepad
                 index = dnp.richTextBox1.SelectionStart;
                 overrideIndex = false;
             }
-
             if (index < 0)
                 index = dnp.richTextBox1.Text.Length;
 
             string TextAnalyze = richTextAnalyze.Substring(0, index);
             if (TextAnalyze.Contains(find))
             {
-                dnp.richTextBox1.SelectionStart = TextAnalyze.LastIndexOf(find);
-                dnp.richTextBox1.SelectionLength = find.Length;
-
+                dnp.richTextBox1.Select(TextAnalyze.LastIndexOf(find), find.Length);
                 dnp.richTextBox1.Focus();
 
                 index = dnp.richTextBox1.SelectionStart;
@@ -142,8 +120,6 @@ namespace DarkNotepad
         {
             if (textBox1.Text == String.Empty) return;
 
-            updateDNT(sender, e);
-
             string richTextAnalyze = dnp.richTextBox1.Text;
             string find = textBox1.Text;
             if (!matchCase)
@@ -156,6 +132,7 @@ namespace DarkNotepad
             {
                 label4.Text = String.Format("Cannot find \"{0}\"", textBox1.Text);
                 label4.Visible = true;
+
                 if (!this.Visible)
                 {
                     WarningBox WB = new WarningBox(String.Format("Cannot find \"{0}\"", textBox1.Text));
@@ -171,8 +148,7 @@ namespace DarkNotepad
 
             if (overrideIndex)
             {
-                index = dnp.richTextBox1.SelectionStart
-                    + dnp.richTextBox1.SelectionLength;
+                index = dnp.richTextBox1.SelectionStart + dnp.richTextBox1.SelectionLength;
                 overrideIndex = false;
             }
 
@@ -187,14 +163,18 @@ namespace DarkNotepad
                 }
                 if (replaceText == find)
                 {
+                    int oldTextLength = dnp.richTextBox1.SelectedText.Length;
                     dnp.richTextBox1.SelectedText = replaceWith;
-                    dnp.richTextBox1.SelectionStart = selectStart;
-                    dnp.richTextBox1.SelectionLength = replaceWith.Length;
+                    dnp.richTextBox1.Select(selectStart, replaceWith.Length);
 
                     richTextAnalyze = dnp.richTextBox1.Text;
                     if (!matchCase)
                     {
                         richTextAnalyze = richTextAnalyze.ToLower();
+                    }
+                    if (replaceWith.Length - oldTextLength < 0)
+                    {
+                        index += replaceWith.Length - oldTextLength;
                     }
                 }
 
@@ -205,14 +185,10 @@ namespace DarkNotepad
             if (index > dnp.richTextBox1.Text.Length)
                 index = 0;
 
-
             string TextAnalyze = richTextAnalyze.Substring(index);
             if (TextAnalyze.Contains(find))
             {
-                dnp.richTextBox1.SelectionStart = TextAnalyze.IndexOf(find) + index;
-                dnp.richTextBox1.SelectionLength = find.Length;
-
-                dnp.richTextBox1.Focus();
+                dnp.richTextBox1.Select(TextAnalyze.IndexOf(find) + index, find.Length);
 
                 index = dnp.richTextBox1.SelectionStart + find.Length;
             }
@@ -230,6 +206,11 @@ namespace DarkNotepad
                 //  replace text.
         private void button3_Click(object sender, EventArgs e)
         {
+            if (textBox1.Text == textBox2.Text)
+                return;
+            if (textBox1.Text.ToLower() == textBox2.Text.ToLower() && !matchCase)
+                return;
+
             replaceWith = textBox2.Text;
             button2_Click(sender, e);
         }
@@ -237,26 +218,33 @@ namespace DarkNotepad
         private void button4_Click(object sender, EventArgs e)
         {
             int whileLoopLimit = 500;
-            if (matchCase)
+            string textBox = dnp.richTextBox1.Text;
+            string checkFor = textBox1.Text;
+            if (!matchCase)
             {
-                while (dnp.richTextBox1.Text.Contains(textBox1.Text))
-                {
-                    whileLoopLimit--;
-                    if (whileLoopLimit <= 0)
-                        break;
-                    button3_Click(sender, e);
-                }
+                textBox = textBox.ToLower();
+                checkFor = checkFor.ToLower();
             }
-            else
+
+            while (textBox.Contains(checkFor))
             {
-                while (dnp.richTextBox1.Text.ToLower().Contains(textBox1.Text.ToLower()))
-                {
-                    whileLoopLimit--;
-                    if (whileLoopLimit <= 0)
-                        break;
-                    button3_Click(sender, e);
-                }
+                whileLoopLimit--;
+                if (whileLoopLimit <= 0)
+                    break;
+
+                button3_Click(sender, e);
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void FindReplace_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            GC.Collect();
+            this.Dispose();
+            dnp.richTextBox1.Focus();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -264,12 +252,28 @@ namespace DarkNotepad
             Settings1.Default.FindNextPrev = textBox1.Text;
             Settings1.Default.Save();
         }
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                button2_Click(null, null);
+                e.Handled = true;
+            }
+        }
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                button3_Click(null, null);
+                e.Handled = true;
+            }
+        }
 
         public void updateThemeColors()
         {
             SettingsStylize SStylize = SettingsStylize.Default;
-            this.BackColor = SStylize.Background;
-            this.ForeColor = SStylize.Text;
+            BackColor = SStylize.Background;
+            ForeColor = SStylize.Text;
             textBox1.BackColor = SStylize.TextBox;
             textBox1.ForeColor = SStylize.TextBox_Text;
             textBox2.BackColor = SStylize.TextBox;

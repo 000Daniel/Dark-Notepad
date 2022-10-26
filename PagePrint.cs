@@ -136,12 +136,6 @@ namespace DarkNotepad
             myReader = new StringReader(rtbText);
             if (printDialog1.ShowDialog() == DialogResult.OK)
             {
-                /*WarningBox WB = new WarningBox("Printing...");
-                WB.Text = "Printing";
-                WB.StartPosition = FormStartPosition.CenterScreen;
-                WB.Show();
-                WB.BringToFront();*/
-
                 printDocument1.Print();
             }
         }
@@ -247,7 +241,7 @@ namespace DarkNotepad
                 count++;
             }
 
-            //  If there are more lines, print another page.
+                    //  If there are more lines, print another page.
             if (line != null)
             {
                 PageLine++;

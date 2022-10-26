@@ -6,7 +6,7 @@ namespace DarkNotepad
 {
     public partial class GoTo : Form
     {
-        private Notepad dnp;
+        private Notepad dnp = Application.OpenForms.OfType<Notepad>().First();
 
         public GoTo()
         {
@@ -15,16 +15,8 @@ namespace DarkNotepad
 
         private void GoTo_Load(object sender, EventArgs e)
         {
-            updateDNT(sender, e);
             textBox1.Text = (dnp.richTextBox1.Lines.Count()).ToString();
             updateThemeColors();
-        }
-
-        private void updateDNT(object sender, EventArgs e)
-        {
-            if (dnp != null) return;
-            if (Application.OpenForms.OfType<Notepad>().Any())
-                dnp = Application.OpenForms.OfType<Notepad>().First();
         }
 
                 //  This function checks if the user entered a number into the TextBox.
@@ -48,20 +40,42 @@ namespace DarkNotepad
                 button1_Click(sender, e);
             }
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            this.Dispose();
-            updateDNT(sender, e);
-            dnp.Focus();
-        }
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                if (textBox1.SelectedText.Length <= 0) return;
+                    Clipboard.SetText(textBox1.SelectedText);
+            }
+            if (e.Control && e.KeyCode == Keys.V)
+            {
+                IDataObject id = Clipboard.GetDataObject();
+                if (id.GetDataPresent(DataFormats.UnicodeText)
+                    || id.GetDataPresent(DataFormats.Text)
+                    || id.GetDataPresent(DataFormats.Html))
+                {
+                    string clipboardText = Clipboard.GetText(TextDataFormat.Text);
+                    string txtbxValue = "";
+                    string[] legalChar = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+                    foreach (char ch in clipboardText)
+                    {
 
+                        foreach (string lc in legalChar)
+                        {
+                            if (ch.ToString().Equals(lc))
+                                txtbxValue = txtbxValue + ch;
+                        }
+                    }
+
+                    textBox1.SelectedText = txtbxValue;
+                }
+            }
+        }
                 //  This button tries to go to the requested line.
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                updateDNT(sender, e);
                 label2.Visible = false;
 
                 int line = int.Parse(textBox1.Text);
@@ -70,7 +84,7 @@ namespace DarkNotepad
                     label2.Visible = true;
                     return;
                 }
-                updateDNT(sender, e);
+
                 int index = dnp.richTextBox1.GetFirstCharIndexFromLine(line - 1);
                 dnp.richTextBox1.SelectionStart = index;
                 dnp.richTextBox1.SelectionLength = 0;
@@ -83,13 +97,23 @@ namespace DarkNotepad
             }
             catch (Exception ex)
             {
-                WarningBox WB = new WarningBox("Error!\n" + ex.Message);
+                WarningBox WB = new WarningBox(ex.Message);
                 WB.createButton(null, null, "Okay", "CloseWarningBox", 70);
                 WB.StartPosition = FormStartPosition.CenterScreen;
                 WB.Show();
                 WB.BringToFront();
                 WB = null;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void GoTo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Dispose();
+            dnp.richTextBox1.Focus();
         }
 
         private void GoTo_Activated(object sender, EventArgs e)

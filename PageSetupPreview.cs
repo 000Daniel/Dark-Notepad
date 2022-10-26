@@ -12,6 +12,7 @@ namespace DarkNotepad
         public bool Portrait;
         private Bitmap bm;
 
+                //  This generates and returns the preview page image.
         public Bitmap generateImage()
         {
             SettingsStylize SStylize = SettingsStylize.Default;
@@ -26,6 +27,7 @@ namespace DarkNotepad
             bm = new Bitmap(picturebox_size.Width, picturebox_size.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             Graphics g = Graphics.FromImage(bm);
 
+                    //  This draws the general shape of the paper (and its shadow).
             g.FillRectangle(new SolidBrush(SStylize.Background_Highlight), 0, 0, picturebox_size.Width, picturebox_size.Height);
             g.FillRectangle(Brushes.DarkGray, page_loc.X + 8, page_loc.Y + 8, page_size.Width, page_size.Height);
             g.FillRectangle(Brushes.Black, page_loc.X - 1, page_loc.Y - 1, page_size.Width + 2, page_size.Height + 2);

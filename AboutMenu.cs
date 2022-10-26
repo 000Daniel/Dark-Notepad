@@ -7,30 +7,26 @@ namespace DarkNotepad
 {
     public partial class AboutMenu : Form
     {
-        private Notepad dnp;
-
         public AboutMenu()
         {
             InitializeComponent();
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            label7.Text = String.Format("Version {0}.{1}.{2}",version.Major,version.Minor,version.Build);
             updateThemeColors();
-        }
-
-        private void updateDNT(object sender, EventArgs e)
-        {
-            if (dnp == null)
-            {
-                if (Application.OpenForms.OfType<Notepad>().Any())
-                {
-                    dnp = Application.OpenForms.OfType<Notepad>().First();
-                }
-            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void AboutMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
             this.Dispose();
-            updateDNT(sender, e);
-            dnp.Focus();
+            if (Application.OpenForms.OfType<Notepad>().Any())
+            {
+                Application.OpenForms.OfType<Notepad>().First().richTextBox1.Focus();
+            }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -55,8 +51,8 @@ namespace DarkNotepad
         private void updateThemeColors()
         {
             SettingsStylize SStylize = SettingsStylize.Default;
-            this.BackColor = SStylize.Background;
-            this.ForeColor = SStylize.Text;
+            BackColor = SStylize.Background;
+            ForeColor = SStylize.Text;
             panel1.BackColor = SStylize.Background_Highlight;
             label1.BackColor = SStylize.Background;
             label1.ForeColor = SStylize.Text;

@@ -1,20 +1,21 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace DarkNotepad
 {
-            //  This class is called and created mainly from 'Form1' class.
-            //  This class contains 'createButton()', 'createCheckedButton()', 'createPanelLine()'
-            //  functions which together allow the Developer to add and remove whatever controls they
-            //  want during runtime, this class is a modular Context menu.
-            //  Each button also calls by name a method/function from 'From1' class.
+    //  This class is called and created mainly from 'Form1' class.
+    //  This class contains 'createButton()', 'createCheckedButton()', 'createPanelLine()'
+    //  functions which together allow the Developer to add and remove whatever controls they
+    //  want during runtime, this class is a modular Context menu.
+    //  Each button also calls by name a method/function from 'From1' class.
     public partial class ContextMenu : Form
     {
         private int locationY = 1;
         private int ButtonHeight = 26;
-        private Notepad dnp = new Notepad(String.Empty);
+        private Notepad dnp = Application.OpenForms.OfType<Notepad>().First();
         public bool busy = false;
         public int panelSize = 231;
         SettingsStylize SStylize = SettingsStylize.Default;
@@ -22,13 +23,8 @@ namespace DarkNotepad
         public ContextMenu()
         {
             InitializeComponent();
-
-            if (Application.OpenForms.OfType<Notepad>().Any())
-            {
-                dnp = Application.OpenForms.OfType<Notepad>().First();
-            }
-
             this.BackColor = SStylize.Background;
+            this.KeyPreview = true;
         }
 
         private void updateFormSize(object sender, EventArgs e)
@@ -57,8 +53,8 @@ namespace DarkNotepad
         public void createCheckedButton(object sender, EventArgs e)
         {
             PictureBox pb = new PictureBox();
-            pb.Image = global::DarkNotepad.Resource1.DarkCheck2;
-            pb.Location = new System.Drawing.Point(6, locationY + 6);
+            pb.Image = dnp.Check2;
+            pb.Location = new Point(6, locationY + 6);
             pb.Size = new Size(13, 13);
             pb.Name = "pictureBox1";
             pb.TabIndex = 3;
@@ -73,14 +69,14 @@ namespace DarkNotepad
 
             btn.FlatAppearance.BorderColor = SStylize.Background;
             btn.BackColor = SStylize.Background;
-            btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btn.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btn.Location = new System.Drawing.Point(1, locationY);
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btn.Location = new Point(1, locationY);
             btn.Name = btnText;
-            btn.Size = new System.Drawing.Size(panelSize - 2, ButtonHeight);
+            btn.Size = new Size(panelSize - 2, ButtonHeight);
             btn.TabIndex = 2;
             btn.Text = "     " + btnText;
-            btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btn.TextAlign = ContentAlignment.MiddleLeft;
             btn.UseCompatibleTextRendering = true;
             btn.UseVisualStyleBackColor = true;
             if (enabled)
@@ -89,7 +85,6 @@ namespace DarkNotepad
                 btn.ForeColor = SStylize.Button_Text;
                 btn.FlatAppearance.MouseDownBackColor = SStylize.Button_Pressed;
                 btn.FlatAppearance.MouseOverBackColor = SStylize.Button_Highlight;
-
             }
             else
             {
@@ -133,13 +128,23 @@ namespace DarkNotepad
             GC.Collect();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+                //  This adds a shadow to the context menu.
+        private const int CS_DROPSHADOW = 0x20000;
+        protected override CreateParams CreateParams
         {
-            if (Application.OpenForms.OfType<Notepad>().Any())
+            get
             {
-                dnp = Application.OpenForms.OfType<Notepad>().First();
-                timer1.Enabled = false;
-                timer1.Dispose();
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
+
+        private void ContextMenu_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
     }

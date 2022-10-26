@@ -43,6 +43,8 @@
             this.Apply_Button = new System.Windows.Forms.Button();
             this.Exit_Button = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
@@ -112,6 +114,7 @@
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.ForeColor = System.Drawing.SystemColors.Control;
             this.textBox1.Location = new System.Drawing.Point(277, 295);
+            this.textBox1.MaxLength = 3;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(55, 23);
@@ -119,6 +122,7 @@
             this.textBox1.Text = "255";
             this.textBox1.WordWrap = false;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // textBox2
@@ -127,6 +131,7 @@
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox2.ForeColor = System.Drawing.SystemColors.Control;
             this.textBox2.Location = new System.Drawing.Point(277, 335);
+            this.textBox2.MaxLength = 3;
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(55, 23);
@@ -134,6 +139,7 @@
             this.textBox2.Text = "255";
             this.textBox2.WordWrap = false;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // textBox3
@@ -142,6 +148,7 @@
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox3.ForeColor = System.Drawing.SystemColors.Control;
             this.textBox3.Location = new System.Drawing.Point(277, 376);
+            this.textBox3.MaxLength = 3;
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(55, 23);
@@ -149,6 +156,7 @@
             this.textBox3.Text = "255";
             this.textBox3.WordWrap = false;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.textBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox3_KeyDown);
             this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
             // 
             // panel1
@@ -181,7 +189,7 @@
             this.Apply_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
             this.Apply_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Apply_Button.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Apply_Button.Location = new System.Drawing.Point(285, 423);
+            this.Apply_Button.Location = new System.Drawing.Point(285, 458);
             this.Apply_Button.Name = "Apply_Button";
             this.Apply_Button.Size = new System.Drawing.Size(90, 26);
             this.Apply_Button.TabIndex = 24;
@@ -198,7 +206,7 @@
             this.Exit_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(60)))));
             this.Exit_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Exit_Button.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Exit_Button.Location = new System.Drawing.Point(385, 423);
+            this.Exit_Button.Location = new System.Drawing.Point(385, 458);
             this.Exit_Button.Name = "Exit_Button";
             this.Exit_Button.Size = new System.Drawing.Size(90, 26);
             this.Exit_Button.TabIndex = 23;
@@ -216,11 +224,37 @@
             this.label4.TabIndex = 25;
             this.label4.Text = "Pick a color:";
             // 
+            // textBox4
+            // 
+            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox4.ForeColor = System.Drawing.SystemColors.Control;
+            this.textBox4.Location = new System.Drawing.Point(76, 413);
+            this.textBox4.MaxLength = 6;
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(195, 23);
+            this.textBox4.TabIndex = 26;
+            this.textBox4.Text = "000000";
+            this.textBox4.WordWrap = false;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 415);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 18);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "Hex";
+            // 
             // ColorPicker
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(487, 463);
+            this.ClientSize = new System.Drawing.Size(487, 496);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.Apply_Button);
             this.Controls.Add(this.Exit_Button);
@@ -238,10 +272,12 @@
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.SystemColors.Control;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ColorPicker";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Select Color";
@@ -270,5 +306,7 @@
         private System.Windows.Forms.Button Apply_Button;
         private System.Windows.Forms.Button Exit_Button;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label5;
     }
 }
