@@ -34,6 +34,54 @@
     <br />
     <br />
 ## Change Log
+### Version 1.0.2
+- Added custom scrollbars. <br/>
+This replaces every scrollbar in Dark-Notepad, this feature is also optional.
+- Overhauled the Font settings menu. <br/>
+now the text selection is done through buttons. <br/>
+the current font is now highlighted when the page opens. <br/>
+now writing a font's name would highlight it in the selection window.
+- Added support for right to left reading order.
+- Added right click context menu in the text area
+- Added more settings to settings page: <br/>
+`enable custom scrollbar`, `enable status bar`, `enable right to left reading order`, `enable edit with darknotepad`.
+- Added support for scrolling sideways with `SHIFT + SCROLLWHEEL`.
+- Added more options for theme stylizing: <br/>
+`statusbar`, `scrollbar`.
+- Now Dark-Notepad would generate custom icons based on the stylizing settings.
+- Added default directories to import and export themes to.
+- Added a theme folder bundled with 7 new themes: <br/>
+`Anonymous theme`, `Antarctic Deep theme`, `Antarctic Light theme`, `Cooking Forum theme`, `Crimson Gold theme`, `Cyber Cold theme`, `Green Terminal theme`.
+- Added hex color code support in the Color Picker menu.
+- Now pressing `ESC` in a context menu closes it.
+- Added better support for resize grip handle.
+- Added text padding to the text area.
+- Added new shortcuts: <br/>
+
+|Shortcut|Comment                                      |
+|--------|---------------------------------------------|
+|F1      |Opens internet help                          |
+|ALT + F |Opens the File menu                          |
+|ALT + E |Opens the Edit menu                          |
+|ALT + O |Opens the Format menu                        |
+|ALT + V |Opens the View menu                          |
+|ALT + H |Opens the Help menu                          |
+|ALT + X |exits Dark-Notepad                           |
+
+- **Fixed bugs:**
+- Added `CTRL + C` and `CTRL + V` to textboxes. <br/>
+- Now batch(.bat) files would automatically be encoded with ASCII encoding.
+- Fixed find/replace bug not working correctly, aswell as added the ability to press enter to find or replace the next text.
+- Added shadow backdrop to the context menus.
+- Now leaving an empty textbox in Color Picker resets its value to 0.
+- After context menus close Dark-Notepad focuses back into the text area.
+- Fixed resize grip handle appearing in fullscreen.
+- Fixed incorrect text colors in warning boxes.
+- Fixed other minor bugs.
+- Added more comments to the source code. <br />
+- Optimized some code and made it more readable. <br />
+<br />
+
 ### Version 1.0.1
 - Added printing support. `file` -> `Print...`
 - Added print settings. `file` -> `Page Setup...` Known issues: <br />
@@ -49,8 +97,8 @@ Reset Theme: Ctrl+R <br />
 Print menu: Ctrl+P <br />
 - Fixed an issue with saving files. <br />
 - Fixed some styling to be more consistent: <br />
-Removed borders from context menu buttons in the text editor. <br />
-Added current encoder to status bar. <br />
+- Removed borders from context menu buttons in the text editor. <br />
+- Added current encoder to status bar. <br />
 - Added more comments to the source code. <br />
 - Optimized some code and made it more readable. <br />
 <br />
