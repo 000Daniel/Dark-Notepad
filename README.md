@@ -60,7 +60,8 @@ now writing a font's name would highlight it in the selection window.
 - Now Dark-Notepad would generate custom icons based on the stylizing settings.
 - Added default directories to import and export themes to.
 - Added a theme folder bundled with 7 new themes: <br/>
-`Anonymous theme`, `Antarctic Deep theme`, `Antarctic Light theme`, `Cooking Forum theme`, `Crimson Gold theme`, `Cyber Cold theme`, `Green Terminal theme`.
+`Anonymous theme`, `Antarctic Deep theme`, `Antarctic Light theme`, `Crimson Gold theme`, `Cyber Cold theme`. <br/>
+And special thanks to [Kemono](https://github.com/Kemono03) for providing these themes: `Cooking Forum theme`, `Green Terminal theme`.
 - Added hex color code support in the Color Picker menu.
 - Now pressing `ESC` in a context menu closes it.
 - Added better support for resize grip handle.
