@@ -7,7 +7,7 @@
     <ApplicationIcon>Assets\DarkNotepadIcon.ico</ApplicationIcon>
     <Company>000Daniel</Company>
     <Authors>000Daniel</Authors>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Copyright>000Daniel</Copyright>
     <Description>This is a recreation of Microsoft's Notepad in C# with dark mode.</Description>
     <PackageProjectUrl>https://github.com/000Daniel/Dark-Notepad</PackageProjectUrl>
