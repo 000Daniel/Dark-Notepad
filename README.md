@@ -43,6 +43,16 @@
     <br />
     <br />
 ## Change Log
+### Version 1.0.3
+- Added new themes: <br/>
+`Deep Gray theme`, `Four Faith theme`, `Nostalgic valve theme`, `Retrowave Day theme`. <br/>
+- Fixed an issue where opened and unedited files would still require to save. <br/>
+- Fixed an issue where CTRL + A shortcut would cause the `Ln: ,Col:` in the status bar to break.
+- Now the default encoder is UTF-7 and the encoder settings are saved.
+- Batch(.bat) files now no longer get their encoder settings overwritten.
+- Updated the `regkey_repair.bat` file to work better.
+<br/>
+
 ### Version 1.0.2
 - Added custom scrollbars. <br/>
 This replaces every scrollbar in Dark-Notepad, this feature is also optional.
@@ -103,8 +113,12 @@ This feature uses custom .config files. <br />
 ASCII, Latin1, UTF-32, UTF-16 Unicode, UTF-16 BE, UTF-8, UTF-7. <br />
 - Added file drag n drop support, both to drop into the .exe or into the editor itself. <br />
 - Added shortcuts: <br />
-Reset Theme: Ctrl+R <br />
-Print menu: Ctrl+P <br />
+
+|Shortcut |Comment                                     |
+|---------|--------------------------------------------|
+|CTRL + R |Resets the theme                            |
+|CTRL + P |Opens the Print menu                        |
+
 - Fixed an issue with saving files. <br />
 - Fixed some styling to be more consistent: <br />
 - Removed borders from context menu buttons in the text editor. <br />
