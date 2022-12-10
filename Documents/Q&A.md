@@ -59,7 +59,7 @@
      <br/>
 
 13. ### How do I uninstall Dark-Notepad? (Auto)
-     If you've already deleted the [installation(.msi) media file]((https://github.com/000Daniel/Dark-Notepad/releases), redownload it. <br/>
+     If you've already deleted the [installation(.msi) media file](https://github.com/000Daniel/Dark-Notepad/releases), redownload it. <br/>
      Right click on the installation media file and choose `Uninstall`. <br/>
      If you get an error you'll need to install a newer version first.
           
