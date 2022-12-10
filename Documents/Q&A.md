@@ -18,7 +18,7 @@
    <br/>
 5. ### I'm saving a file, but the characters inside it look strange and are different from what I tried to save.
    This could be an issue with the program that you use to view the text with or with Dark-Notepad's encoder settings. <br/>
-   To change the encoder go to `Help` -> `View Help` -> `Settings` -> in `Encoder` choose a different encoder.
+   To change the encoder settings go to `Help` -> `View Help` -> `Settings` -> in `Encoder` choose a different encoder.
          
    <br/>
 6. ### I'm writing in a language thats read from right to left.
