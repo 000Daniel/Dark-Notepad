@@ -227,6 +227,7 @@ namespace DarkNotepad
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // StatusInnerPanel
             // 
@@ -452,6 +453,7 @@ namespace DarkNotepad
             this.ScrollBars_Grip.TabIndex = 15;
             this.ScrollBars_Grip.TabStop = false;
             this.ScrollBars_Grip.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.ScrollBars_Grip.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ScrollBars_Grip_MouseUp);
             // 
             // button_hidden1
             // 

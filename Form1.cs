@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using Microsoft.VisualBasic.Devices;
 
 namespace DarkNotepad
 {
@@ -47,6 +48,8 @@ namespace DarkNotepad
             Check = null, Check2 = null;
 
         private FormWindowState lastState;
+
+        private int mouseDiffX = -1, mouseDiffY = -1;
 
         public Notepad(string Arg)
         {
@@ -473,7 +476,6 @@ namespace DarkNotepad
             StatusPanel.Visible = Settings1.Default.StatusBar;
             Settings1.Default.FindNextPrev = String.Empty;
             Settings1.Default.MatchCase = false;
-            Settings1.Default.Encode = "UTF-8";
             Settings1.Default.Save();
             ScrollGraphics();
             updateFormName();
@@ -675,12 +677,6 @@ namespace DarkNotepad
                     enc = Encoding.UTF7;
                     break;
             }
-                    //  Batch(.bat) files cannot run UTF8 encoding so the software overrides
-                    //  the encoding on .bat file to be 'ASCII' encoding.
-            if (Path.GetExtension(fileName) == ".bat")
-            {
-                enc = Encoding.ASCII;
-            }
 
             if (File.Exists(Path.Combine(fileDirectory, fileName)) &&
                 fileDirectory != String.Empty && !ForceSaveAs)
@@ -747,7 +743,6 @@ namespace DarkNotepad
             fileName = Path.GetFileName(files[0]);
             fileDirectory = Path.GetDirectoryName(files[0]);
 
-            updateFormName();
             richTextBox1.Focus();
 
             files = Array.Empty<string>();
@@ -857,7 +852,7 @@ namespace DarkNotepad
         {
             CloseContextMenu();
             richTextBox1.Focus();
-            completeSelectionStart = -1;
+            completeSelectionStart = 0;
             richTextBox1.SelectAll();
             SelectionToRight = false;
         }
@@ -1414,8 +1409,8 @@ namespace DarkNotepad
             get { return true; }
         }
 
-        //  This function handles warning boxes and other forms that need
-        //  to be shown on top of the main form.
+                //  This function handles warning boxes and other forms that need
+                //  to be shown on top of the main form.
         private void Notepad_Activated(object sender, EventArgs e)
         {
             if (Application.OpenForms.OfType<Stylize>().Any())
@@ -1641,7 +1636,7 @@ namespace DarkNotepad
                 InternetHelp();
             }
         }
-
+        
                 //  This function handles the custom 'size Grip'.
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -1649,18 +1644,38 @@ namespace DarkNotepad
 
             if (richTextBox1.RightToLeft == RightToLeft.Yes && !Settings1.Default.StatusBar)
             {
-                        //  This allows the user to resize from the bottom left.
-                int oldSize = this.Width;
+                        //  This allows the user to resize from the bottom left grip.
+                if (mouseDiffX < 0 || mouseDiffY < 0)
+                {
+                    mouseDiffX = (this.Location.X) - MousePosition.X;
+                    mouseDiffY = (this.Location.Y + this.Size.Height) - MousePosition.Y;
+                }
 
-                this.Size = new Size(this.Width + (int)((this.Left - MousePosition.X) + 15), MousePosition.Y - this.Location.Y + 15);
-                this.Location = new Point(this.Left + (oldSize - this.Width), this.Top);
+                Win32_Calls.MoveWindow(this.Handle,
+                    MousePosition.X - mouseDiffX, this.Top,
+                    this.Width + (int)((this.Left - MousePosition.X) + mouseDiffX), MousePosition.Y - this.Location.Y + mouseDiffY,
+                    true);
             }
             else
             {
-                        //  This allows the user to resize from the bottom right.
-                this.Size = new Size(MousePosition.X - this.Location.X + 15, MousePosition.Y - this.Location.Y + 15);
+                        //  This allows the user to resize from the bottom right grip.
+                if (mouseDiffX < 0 || mouseDiffY < 0)
+                {
+                    mouseDiffX = (this.Location.X + this.Size.Width) - MousePosition.X;
+                    mouseDiffY = (this.Location.Y + this.Size.Height) - MousePosition.Y;
+                }
+                this.Size = new Size(MousePosition.X - this.Location.X + mouseDiffX, MousePosition.Y - this.Location.Y + mouseDiffY); //+15
             }
             this.Update();
+        }
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDiffX = -1;
+            mouseDiffY = -1;
+        }
+        private void ScrollBars_Grip_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBox1_MouseUp(sender, e);
         }
 
                 //  This function is responsible for beginning to update the status bar
@@ -1692,8 +1707,6 @@ namespace DarkNotepad
                 //  This function determines whether the user is selecting left to right
                 //  or right to left.
                 //  this is used for the status bar (Ln, Col)
-                //  KNOWN ISSUE: sometimes the shortcut CTRL+A would cause
-                //  the 'Ln,Col' a reset to 1, 1.
         private void richTextBox1_SelectionChanged(object sender, EventArgs e)
         {
             if (!Settings1.Default.StatusBar) return;

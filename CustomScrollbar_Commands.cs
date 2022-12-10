@@ -120,10 +120,10 @@ namespace DarkNotepad
         {
             int addScrollValue = 20;
 
-            RichTextBoxWin32.SCROLLINFO scrollInfo = new RichTextBoxWin32.SCROLLINFO();
+            Win32_Calls.SCROLLINFO scrollInfo = new Win32_Calls.SCROLLINFO();
             scrollInfo.cbSize = Marshal.SizeOf(scrollInfo);
             scrollInfo.fMask = 0x10 | 0x1 | 0x2;
-            RichTextBoxWin32.GetScrollInfo(fm.SelectionMenu1.Handle, 1, ref scrollInfo);
+            Win32_Calls.GetScrollInfo(fm.SelectionMenu1.Handle, 1, ref scrollInfo);
 
             while (scrollInfo.nTrackPos + addScrollValue > scrollInfo.max - scrollInfo.nPage)
             {
@@ -174,10 +174,10 @@ namespace DarkNotepad
         {
             int addScrollValue = 20;
 
-            RichTextBoxWin32.SCROLLINFO scrollInfo = new RichTextBoxWin32.SCROLLINFO();
+            Win32_Calls.SCROLLINFO scrollInfo = new Win32_Calls.SCROLLINFO();
             scrollInfo.cbSize = Marshal.SizeOf(scrollInfo);
             scrollInfo.fMask = 0x10 | 0x1 | 0x2;
-            RichTextBoxWin32.GetScrollInfo(fm.SelectionMenu2.Handle, 1, ref scrollInfo);
+            Win32_Calls.GetScrollInfo(fm.SelectionMenu2.Handle, 1, ref scrollInfo);
 
             while (scrollInfo.nTrackPos + addScrollValue > scrollInfo.max - scrollInfo.nPage)
             {
@@ -228,10 +228,10 @@ namespace DarkNotepad
         {
             int addScrollValue = 20;
 
-            RichTextBoxWin32.SCROLLINFO scrollInfo = new RichTextBoxWin32.SCROLLINFO();
+            Win32_Calls.SCROLLINFO scrollInfo = new Win32_Calls.SCROLLINFO();
             scrollInfo.cbSize = Marshal.SizeOf(scrollInfo);
             scrollInfo.fMask = 0x10 | 0x1 | 0x2;
-            RichTextBoxWin32.GetScrollInfo(fm.SelectionMenu3.Handle, 1, ref scrollInfo);
+            Win32_Calls.GetScrollInfo(fm.SelectionMenu3.Handle, 1, ref scrollInfo);
 
             while (scrollInfo.nTrackPos + addScrollValue > scrollInfo.max - scrollInfo.nPage)
             {
@@ -290,16 +290,16 @@ namespace DarkNotepad
         {
             int addScrollValue = 20;
 
-            RichTextBoxWin32.SCROLLINFO scrollInfo = new RichTextBoxWin32.SCROLLINFO();
+            Win32_Calls.SCROLLINFO scrollInfo = new Win32_Calls.SCROLLINFO();
             scrollInfo.cbSize = Marshal.SizeOf(scrollInfo);
             scrollInfo.fMask = 0x10 | 0x1 | 0x2;
             if (vh.flowLayoutPanel1.Visible)
             {
-                RichTextBoxWin32.GetScrollInfo(vh.flowLayoutPanel1.Handle, 1, ref scrollInfo);
+                Win32_Calls.GetScrollInfo(vh.flowLayoutPanel1.Handle, 1, ref scrollInfo);
             }
             else
             {
-                RichTextBoxWin32.GetScrollInfo(vh.settingsPanel.Handle, 1, ref scrollInfo);
+                Win32_Calls.GetScrollInfo(vh.settingsPanel.Handle, 1, ref scrollInfo);
             }
 
             while (scrollInfo.nTrackPos + addScrollValue > scrollInfo.max - scrollInfo.nPage)
@@ -321,54 +321,54 @@ namespace DarkNotepad
         //  ###################[MAIN SCROLLBAR IN RICHTEXTBOX]###################
         public void HScrollBar_ArrowLeft_Click(object sender, EventArgs e, RichTextBox richTextBox1)
         {
-            Point curPos = RichTextBoxWin32.GetScrollPos(richTextBox1);
+            Point curPos = Win32_Calls.GetScrollPos(richTextBox1);
             if (curPos.X <= 20)
             {
-                RichTextBoxWin32.SetScrollPos(new Point(0, curPos.Y), richTextBox1);
+                Win32_Calls.SetScrollPos(new Point(0, curPos.Y), richTextBox1);
             }
             else
             {
-                RichTextBoxWin32.SetScrollPos(new Point(curPos.X - 20, curPos.Y), richTextBox1);
+                Win32_Calls.SetScrollPos(new Point(curPos.X - 20, curPos.Y), richTextBox1);
             }
         }
         public void HScrollBar_ArrowRight_Click(object sender, EventArgs e , RichTextBox richTextBox1)
         {
             int addScrollValue = 20;
 
-            RichTextBoxWin32.SCROLLINFO scrollInfo = new RichTextBoxWin32.SCROLLINFO();
+            Win32_Calls.SCROLLINFO scrollInfo = new Win32_Calls.SCROLLINFO();
             scrollInfo.cbSize = Marshal.SizeOf(scrollInfo);
             scrollInfo.fMask = 0x10 | 0x1 | 0x2;
-            RichTextBoxWin32.GetScrollInfo(richTextBox1.Handle, 0, ref scrollInfo);
+            Win32_Calls.GetScrollInfo(richTextBox1.Handle, 0, ref scrollInfo);
 
             while (scrollInfo.nTrackPos + addScrollValue > scrollInfo.max - scrollInfo.nPage)
             {
                 addScrollValue--;
             }
 
-            Point curPos = RichTextBoxWin32.GetScrollPos(richTextBox1);
-            RichTextBoxWin32.SetScrollPos(new Point(curPos.X + addScrollValue, curPos.Y), richTextBox1);
+            Point curPos = Win32_Calls.GetScrollPos(richTextBox1);
+            Win32_Calls.SetScrollPos(new Point(curPos.X + addScrollValue, curPos.Y), richTextBox1);
         }
         public void VScrollBar_ArrowUp_Click(object sender, EventArgs e, RichTextBox richTextBox1)
         {
-            Point curPos = RichTextBoxWin32.GetScrollPos(richTextBox1);
-            RichTextBoxWin32.SetScrollPos(new Point(curPos.X, curPos.Y - 20), richTextBox1);
+            Point curPos = Win32_Calls.GetScrollPos(richTextBox1);
+            Win32_Calls.SetScrollPos(new Point(curPos.X, curPos.Y - 20), richTextBox1);
         }
         public void VScrollBar_ArrowDown_Click(object sender, EventArgs e, RichTextBox richTextBox1)
         {
             int addScrollValue = 20;
 
-            RichTextBoxWin32.SCROLLINFO scrollInfo = new RichTextBoxWin32.SCROLLINFO();
+            Win32_Calls.SCROLLINFO scrollInfo = new Win32_Calls.SCROLLINFO();
             scrollInfo.cbSize = Marshal.SizeOf(scrollInfo);
             scrollInfo.fMask = 0x10 | 0x1 | 0x2;
-            RichTextBoxWin32.GetScrollInfo(richTextBox1.Handle, 1, ref scrollInfo);
+            Win32_Calls.GetScrollInfo(richTextBox1.Handle, 1, ref scrollInfo);
 
             while (scrollInfo.nTrackPos + addScrollValue > scrollInfo.max - scrollInfo.nPage)
             {
                 addScrollValue--;
             }
 
-            Point curPos = RichTextBoxWin32.GetScrollPos(richTextBox1);
-            RichTextBoxWin32.SetScrollPos(new Point(curPos.X, curPos.Y + addScrollValue), richTextBox1);
+            Point curPos = Win32_Calls.GetScrollPos(richTextBox1);
+            Win32_Calls.SetScrollPos(new Point(curPos.X, curPos.Y + addScrollValue), richTextBox1);
         }
                 //  ###################[END]###################
 
@@ -376,7 +376,7 @@ namespace DarkNotepad
         public void ScrollSelection(IntPtr handlePtr, Panel VScrollbar_Thumb, Panel VScrollbar)
         {
                     //  Check if scrollbar's thumb is available
-            string availableScroll = RichTextBoxWin32.GetScrollBarsEnabled(handlePtr).Vertical.ToString();
+            string availableScroll = Win32_Calls.GetScrollBarsEnabled(handlePtr).Vertical.ToString();
             if (availableScroll == "STATE_SYSTEM_UNAVAILABLE" ||
                 availableScroll == "STATE_SYSTEM_INVISIBLE")
             {
@@ -386,10 +386,10 @@ namespace DarkNotepad
             availableScroll = string.Empty;
 
                     //  Calculate the scrollbar's thumb size and location.
-            RichTextBoxWin32.SCROLLINFO scrollInfo = new RichTextBoxWin32.SCROLLINFO();
+            Win32_Calls.SCROLLINFO scrollInfo = new Win32_Calls.SCROLLINFO();
             scrollInfo.cbSize = Marshal.SizeOf(scrollInfo);
             scrollInfo.fMask = 0x10 | 0x1 | 0x2;
-            RichTextBoxWin32.GetScrollInfo(handlePtr, 1, ref scrollInfo);
+            Win32_Calls.GetScrollInfo(handlePtr, 1, ref scrollInfo);
             float scrollRatio = (float)scrollInfo.nPage / (float)scrollInfo.max;
 
             if (scrollInfo.max < 0 || scrollInfo.nPage < 0) return;
@@ -412,7 +412,7 @@ namespace DarkNotepad
         }
         public void HScrollSelection(IntPtr handlePtr, Panel HScrollbar_Thumb, Panel HScrollbar)
         {
-            string availableScroll = RichTextBoxWin32.GetScrollBarsEnabled(handlePtr).Horizontal.ToString();
+            string availableScroll = Win32_Calls.GetScrollBarsEnabled(handlePtr).Horizontal.ToString();
             if (availableScroll == "STATE_SYSTEM_UNAVAILABLE" ||
                 availableScroll == "STATE_SYSTEM_INVISIBLE")
             {
@@ -422,10 +422,10 @@ namespace DarkNotepad
             availableScroll = string.Empty;
 
                     //  Calculate the 'HScrollbar_Thumb' size and location.
-            RichTextBoxWin32.SCROLLINFO scrollInfo = new RichTextBoxWin32.SCROLLINFO();
+            Win32_Calls.SCROLLINFO scrollInfo = new Win32_Calls.SCROLLINFO();
             scrollInfo.cbSize = Marshal.SizeOf(scrollInfo);
             scrollInfo.fMask = 0x10 | 0x1 | 0x2;
-            RichTextBoxWin32.GetScrollInfo(handlePtr, 0, ref scrollInfo);
+            Win32_Calls.GetScrollInfo(handlePtr, 0, ref scrollInfo);
 
             if (scrollInfo.max < 0 && scrollInfo.nPage < 0) return;
 

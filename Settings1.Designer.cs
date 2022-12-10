@@ -109,7 +109,7 @@ namespace DarkNotepad {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("UTF-8")]
+        [global::System.Configuration.DefaultSettingValueAttribute("UTF-7")]
         public string Encode {
             get {
                 return ((string)(this["Encode"]));

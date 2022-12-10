@@ -9,28 +9,39 @@ echo %*
 echo %arg%
 echo %new_path%
 
-if %arg%==remove (call :removeRegKey)
-if %arg%==repair (call :repairRegKey)
+if %arg%==remove (goto :removeRegKey)
+if %arg%==repair (goto :repairRegKey)
 exit /B
 
 :removeRegKey
     	cls
-    	set dnp=DarkNotepad
     	echo removing Dark-Notepad's registry keys...
-	reg delete HKEY_CLASSES_ROOT\*\shell\%dnp% /f
-	echo finished!
+	reg delete HKEY_CLASSES_ROOT\*\shell\DarkNotepad /f >nul 2>nul
+
+	reg query HKEY_CLASSES_ROOT\*\shell\DarkNotepad >nul 2>nul
+	if %errorlevel%==0 (
+		echo.
+		echo Failed to delete the key, Attempting again...
+		echo If this message shows up too many times, close this command prompt and try again.
+		pause
+		goto :removeRegKey
+	)
+	echo.
+	echo Action completed successfully!
+	echo Software created by 000Daniel on Github!
 	pause
 	exit /B
 
 :repairRegKey
     	cls
-	set dnp=DarkNotepad
     	echo repairing Dark-Notepad's registry keys...
     	echo repairing root key...
-	reg add HKEY_CLASSES_ROOT\*\shell\%dnp% /f /d "Edit with DarkNotepad"
-	reg add HKEY_CLASSES_ROOT\*\shell\%dnp% /f /v Icon /t REG_SZ /d  "%new_path%\DarkNotepad.exe"
+	reg add HKEY_CLASSES_ROOT\*\shell\DarkNotepad /f >nul 2>nul /d "Edit with DarkNotepad"
+	reg add HKEY_CLASSES_ROOT\*\shell\DarkNotepad /f >nul 2>nul /v Icon /t REG_SZ /d  "%new_path%\DarkNotepad.exe"
     	echo repairing command key...
-	reg add HKEY_CLASSES_ROOT\*\shell\%dnp%\command /f /d  "%new_path%\DarkNotepad.exe %%1"
-    	echo finished!
+	reg add HKEY_CLASSES_ROOT\*\shell\DarkNotepad\command /f >nul 2>nul /d  "%new_path%\DarkNotepad.exe %%1"
+    	echo.
+	echo Action completed successfully!
+	echo Software created by 000Daniel on Github!
 	pause
 	exit /B
